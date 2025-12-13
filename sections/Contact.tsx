@@ -1,97 +1,53 @@
 "use client";
-import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Send, CheckCircle2 } from 'lucide-react';
-import { motion } from 'framer-motion';
-
-interface ContactFormData {
-  name: string;
-  email: string;
-  service: string;
-  message: string;
-}
 
 export default function Contact() {
-  const { register, handleSubmit, formState: { isSubmitting, isSubmitSuccessful } } = useForm<ContactFormData>();
-
-  const onSubmit = async (data: ContactFormData) => {
-    // We will connect this to an email service later
-    console.log(data);
-    await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate loading
-  };
+  const { register, handleSubmit, formState: { isSubmitting, isSubmitSuccessful } } = useForm();
 
   return (
-    <section id="contact" className="py-32 px-6 bg-slate-900 text-white overflow-hidden relative">
-      {/* Aesthetic Background Element */}
-      <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-[600px] h-[600px] bg-blue-600/20 rounded-full blur-[120px]" />
-
+    <section id="contact" className="py-32 px-6 bg-gray-950">
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
         <div>
-          <h2 className="text-4xl md:text-5xl font-bold mb-8">Ready to build <br/><span className="text-blue-400">something great?</span></h2>
-          <p className="text-slate-400 text-lg mb-12 max-w-md">
-            Upload your designs or describe your needs. Our engineers usually respond with a detailed quotation within **4 working hours**.
+          <h2 className="text-4xl md:text-6xl font-heading text-white mb-8 leading-tight text-center lg:text-left">Let&apos;s Build <br /><span className="text-accent">The Future.</span></h2>
+          <p className="text-gray-400 text-lg mb-12 text-center lg:text-left">
+            Skip the gatekeepers. Get direct engineering support for your small-batch needs. Our team responds with detailed quotations within <span className="text-white font-bold">4 working hours.</span>
           </p>
-          
-          <ul className="space-y-6">
-            {["NDA Protected", "Material Consultation", "Global Shipping"].map((item) => (
-              <li key={item} className="flex items-center gap-4 text-slate-300 font-medium">
-                <CheckCircle2 className="text-blue-400 w-6 h-6" /> {item}
-              </li>
+          <div className="space-y-4">
+            {["NDA Protected Conversations", "End-to-End Design Support", "Express Global Shipping"].map((t) => (
+              <div key={t} className="flex items-center gap-3 text-gray-300">
+                <CheckCircle2 size={20} className="text-accent" /> {t}
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
 
-        <motion.div 
-          initial={{ opacity: 0, x: 20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          className="bg-white rounded-3xl p-8 md:p-12 text-slate-900 shadow-2xl"
-        >
+        <div className="bg-gray-900 border border-white/5 rounded-[40px] p-8 md:p-12 shadow-2xl">
           {isSubmitSuccessful ? (
-            <div className="py-20 text-center">
-              <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                <CheckCircle2 size={40} />
-              </div>
-              <h3 className="text-2xl font-bold mb-2">Request Received!</h3>
-              <p className="text-slate-500">Check your inbox for a confirmation email.</p>
+            <div className="text-center py-12">
+              <CheckCircle2 size={64} className="text-accent mx-auto mb-6" />
+              <h3 className="text-2xl font-heading text-white mb-2">Manifested.</h3>
+              <p className="text-gray-400">Our engineers will reach out to audit your project soon.</p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            <form onSubmit={handleSubmit(async (d) => { console.log(d); await new Promise(r => setTimeout(r, 1500)); })} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-sm font-bold uppercase tracking-wider text-slate-400">Full Name</label>
-                  <input {...register("name")} className="w-full bg-slate-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-blue-600" placeholder="John Doe" required />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-bold uppercase tracking-wider text-slate-400">Work Email</label>
-                  <input {...register("email")} type="email" className="w-full bg-slate-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-blue-600" placeholder="john@company.com" required />
-                </div>
+                <input {...register("name")} placeholder="Your Name" required className="w-full bg-gray-800 border-none rounded-2xl p-4 text-white focus:ring-2 focus:ring-accent outline-none" />
+                <input {...register("email")} type="email" placeholder="Work Email" required className="w-full bg-gray-800 border-none rounded-2xl p-4 text-white focus:ring-2 focus:ring-accent outline-none" />
               </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-bold uppercase tracking-wider text-slate-400">Service Category</label>
-                <select {...register("service")} className="w-full bg-slate-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-blue-600">
-                  <option>Small Scale Manufacturing</option>
-                  <option>Lab Equipment Design</option>
-                  <option>Corporate Gifting</option>
-                  <option>Research Prototyping</option>
-                </select>
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-bold uppercase tracking-wider text-slate-400">Project Brief</label>
-                <textarea {...register("message")} className="w-full bg-slate-50 border-none rounded-xl p-4 focus:ring-2 focus:ring-blue-600 min-h-[120px]" placeholder="Tell us about dimensions, quantity, and material preferences..." required />
-              </div>
-
-              <button 
-                disabled={isSubmitting}
-                className="w-full bg-blue-600 text-white py-5 rounded-xl font-bold text-lg hover:bg-blue-700 transition flex items-center justify-center gap-3 shadow-xl shadow-blue-600/20 disabled:opacity-50"
-              >
-                {isSubmitting ? "Processing..." : "Get My Free Quote"}
-                <Send size={20} />
+              <select {...register("service")} className="w-full bg-gray-800 border-none rounded-2xl p-4 text-white focus:ring-2 focus:ring-accent outline-none">
+                <option>Small Batch Production</option>
+                <option>Labware Engineering</option>
+                <option>Corporate Branding</option>
+                <option>R&D Implementation</option>
+              </select>
+              <textarea {...register("message")} placeholder="Project Scope (Dimensions, material, quantity...)" required className="w-full bg-gray-800 border-none rounded-2xl p-4 text-white h-32 focus:ring-2 focus:ring-accent outline-none" />
+              <button disabled={isSubmitting} className="w-full bg-accent text-black py-5 rounded-2xl font-bold text-lg shadow-[0_0_30px_rgba(163,230,53,0.3)] hover:bg-accent/90 transition flex items-center justify-center gap-3">
+                {isSubmitting ? "Syncing..." : "Get My Free Quote"} <Send size={18} />
               </button>
             </form>
           )}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

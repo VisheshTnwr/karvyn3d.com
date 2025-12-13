@@ -1,57 +1,45 @@
 "use client";
-import React from 'react';
 import { motion } from 'framer-motion';
 
 const steps = [
-  {
-    title: "Project Consultation",
-    desc: "We review your 3D models (STL/STEP) and discuss material requirements based on your part's function.",
-    color: "bg-blue-600"
-  },
-  {
-    title: "Optimized Slicing",
-    desc: "Our engineers optimize orientation and support structures to ensure maximum strength and surface finish.",
-    color: "bg-cyan-500"
-  },
-  {
-    title: "Precision Printing",
-    desc: "Parts are printed using industrial FDM or SLA machines with constant monitoring for quality control.",
-    color: "bg-indigo-600"
-  },
-  {
-    title: "Finishing & Delivery",
-    desc: "Post-processing (support removal, sanding, or curing) followed by express shipping to your door.",
-    color: "bg-slate-900"
-  }
+  { title: "Consultation", desc: "Digital audit of your CAD files to optimize for functional utility." },
+  { title: "Optimization", desc: "Material-specific logic applied to ensure maximum part strength." },
+  { title: "Fabrication", desc: "Meticulous batch production using precision FDM hardware." },
+  { title: "QA & Dispatch", desc: "Individual quality inspections and express delivery." }
 ];
 
 export default function Process() {
   return (
-    <section className="py-32 px-6 bg-white">
+    <section id="process" className="py-32 px-6 bg-gray-950 border-t border-white/5">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-24">
-          <h2 className="text-4xl font-bold text-slate-900 mb-4">How it works</h2>
-          <p className="text-slate-500 text-lg">A seamless journey from digital file to physical product.</p>
+        <div className="mb-24 text-center">
+          <h2 className="text-4xl md:text-6xl font-heading text-white mb-6 uppercase tracking-tighter">
+            How we <span className="text-accent-readable">Execute</span>
+          </h2>
+          <p className="text-gray-300 max-w-xl mx-auto text-lg font-medium">
+            A high-speed workflow designed for digital native engineering.
+          </p>
         </div>
 
-        <div className="grid md:grid-cols-4 gap-12 relative">
-          {/* Connector Line (Hidden on mobile) */}
-          <div className="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-slate-100 -z-10" />
-
+        <div className="grid md:grid-cols-4 gap-8">
           {steps.map((step, idx) => (
             <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.2 }}
               key={idx} 
-              className="flex flex-col items-center text-center"
+              initial={{ opacity: 0, y: 20 }} 
+              whileInView={{ opacity: 1, y: 0 }} 
+              viewport={{ once: true }} 
+              className="relative p-8 bg-gray-900/30 border border-white/5 rounded-3xl text-center group hover:bg-gray-900/60 transition-all duration-300"
             >
-              <div className={`w-24 h-24 ${step.color} text-white rounded-full flex items-center justify-center text-2xl font-bold mb-8 shadow-xl border-8 border-white`}>
+              {/* Increased size and black-text contrast for the number */}
+              <div className="w-16 h-16 bg-accent rounded-full flex items-center justify-center font-heading text-[1.5rem] text-black mb-8 mx-auto accent-glow">
                 {idx + 1}
               </div>
-              <h3 className="text-xl font-bold mb-4">{step.title}</h3>
-              <p className="text-slate-500 text-sm leading-relaxed">{step.desc}</p>
+              <h3 className="text-xl font-heading text-white mb-4 tracking-tight uppercase italic">
+                {step.title}
+              </h3>
+              <p className="text-gray-400 text-sm leading-relaxed font-medium">
+                {step.desc}
+              </p>
             </motion.div>
           ))}
         </div>
