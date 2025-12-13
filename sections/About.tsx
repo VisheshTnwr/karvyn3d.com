@@ -1,3 +1,5 @@
+// sections/About.tsx
+
 "use client";
 import { Zap, Component, Users, Rocket } from "lucide-react";
 import { motion } from "framer-motion";
@@ -50,7 +52,15 @@ export default function About() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.15 }}
               viewport={{ once: true, amount: 0.1 }}
-              className="p-6 bg-gray-950 rounded-2xl border border-white/5 hover:border-accent/40 transition-colors duration-300 shadow-xl"
+              
+              // ADDED INTERACTIVE HOVER ANIMATION:
+              whileHover={{ 
+                y: -5, // Lift the card 5px up
+                boxShadow: "0 10px 40px rgba(163, 230, 53, 0.25)", // Enhance shadow
+                transition: { duration: 0.2 } 
+              }}
+              className="p-6 bg-gray-950 rounded-2xl border border-white/5 hover:border-accent/40 shadow-xl"
+              // Removed Tailwind transition classes to let framer-motion handle the smooth animation
             >
               <div className="flex items-start gap-4">
                 {/* FIXED: Added shrink-0 and fixed w/h to prevent squishing */}
