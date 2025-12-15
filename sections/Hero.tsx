@@ -4,15 +4,15 @@ import { motion } from "framer-motion";
 import dynamic from 'next/dynamic';
 
 // DYNAMIC IMPORT FIX: Correctly imports the stable SinglePcbScene component
-const PcbHousingScene = dynamic(() => import('@/components/SinglePcbScene'), { 
-  ssr: false,
-  loading: () => (
-    // Light Theme loading style
-    <div className="flex items-center justify-center w-full h-full bg-slate-50 text-slate-300">
-      <span className="animate-pulse font-heading font-bold">LOADING PRECISION HOUSING...</span>
-    </div>
-  )
-});
+// const PcbHousingScene = dynamic(() => import('@/components/SinglePcbScene'), { 
+//   ssr: false,
+//   loading: () => (
+//     // Light Theme loading style
+//     <div className="flex items-center justify-center w-full h-full bg-slate-50 text-slate-300">
+//       <span className="animate-pulse font-heading font-bold">LOADING PRECISION HOUSING...</span>
+//     </div>
+//   )
+// });
 
 // 1. Define the container variant with stagger delay
 const containerVariants = {
