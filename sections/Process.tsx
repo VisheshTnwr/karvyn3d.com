@@ -1,53 +1,57 @@
-// sections/Process.tsx
-
 "use client";
-import { motion } from 'framer-motion';
+import { FileSearch, Box, ShieldCheck, Truck } from "lucide-react";
 
 const steps = [
-  { title: "Consultation", desc: "Digital audit of your CAD files to optimize for functional utility." },
-  { title: "Optimization", desc: "Material-specific logic applied to ensure maximum part strength." },
-  { title: "Fabrication", desc: "Meticulous batch production using precision hardware." },
-  { title: "QA & Dispatch", desc: "Individual quality inspections and express delivery." }
+  { 
+    icon: FileSearch,
+    title: "DfAM Audit", 
+    desc: "Our engineers review your CAD for wall thickness, tolerances, and printability. We propose optimizations to reduce cost and failure risk." 
+  },
+  { 
+    icon: Box,
+    title: "Agile Fabrication", 
+    desc: "Production begins on our calibrated FDM farms using industrial-grade polymers (PLA+, PETG, PC) tailored to your specs." 
+  },
+  { 
+    icon: ShieldCheck,
+    title: "Quality Assurance", 
+    desc: "Every batch undergoes dimensional accuracy checks and visual inspection. We ensure consistent layer adhesion and surface finish." 
+  },
+  { 
+    icon: Truck,
+    title: "Secure Logistics", 
+    desc: "Parts are securely packed with batch tracking. Digital files are archived in our secure vault for instant re-ordering." 
+  }
 ];
 
 export default function Process() {
   return (
-    <section id="process" className="py-32 px-6 bg-gray-950 border-t border-white/5">
+    <section id="process" className="py-32 px-6 bg-slate-50 border-t border-slate-200">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-24 text-center">
-          <h2 className="text-4xl md:text-6xl font-heading text-white mb-6 uppercase tracking-tighter">
-            How we <span className="text-accent-readable">Execute</span>
-          </h2>
-          <p className="text-gray-300 max-w-xl mx-auto text-lg font-medium">
-            A high-speed workflow designed for digital native engineering.
-          </p>
+        <div className="mb-20 text-center">
+          <span className="text-accent text-xs font-bold tracking-widest uppercase block mb-3">The Workflow</span>
+          <h2 className="text-4xl font-heading text-slate-900">Engineered for Reliability</h2>
         </div>
 
         <div className="grid md:grid-cols-4 gap-8">
           {steps.map((step, idx) => (
-            <motion.div 
-              key={idx} 
-              initial={{ opacity: 0, y: 20 }} 
-              whileInView={{ opacity: 1, y: 0 }} 
-              transition={{ duration: 0.5, delay: idx * 0.1 }} // ADDED STAGGER DELAY
-              viewport={{ once: true }} 
-              className="relative p-8 bg-gray-900/30 border border-white/5 rounded-3xl text-center group hover:bg-gray-900/60 transition-all duration-300"
-            >
-              {/* MODIFIED: Added motion.div for springy rotation on hover */}
-              <motion.div 
-                whileHover={{ rotate: 10, scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                className="w-16 h-16 bg-accent rounded-full flex items-center justify-center font-heading text-[1.5rem] text-black mb-8 mx-auto accent-glow"
-              >
-                {idx + 1}
-              </motion.div>
-              <h3 className="text-xl font-heading text-white mb-4 tracking-tight uppercase italic">
-                {step.title}
-              </h3>
-              <p className="text-gray-400 text-sm leading-relaxed font-medium">
-                {step.desc}
-              </p>
-            </motion.div>
+            <div key={idx} className="relative group">
+              <div className="mb-8 relative z-10 flex justify-center md:justify-start">
+                <div className="w-20 h-20 bg-white border border-slate-200 rounded-2xl flex items-center justify-center text-slate-900 text-2xl shadow-sm group-hover:border-accent group-hover:text-accent transition-all duration-300">
+                  <step.icon size={36} strokeWidth={1.5} />
+                </div>
+                {/* Connector Line */}
+                {idx !== steps.length - 1 && (
+                  <div className="hidden md:block absolute top-10 left-20 w-full h-[2px] bg-slate-200 -z-10" />
+                )}
+              </div>
+              <div className="text-center md:text-left">
+                <h3 className="text-lg font-bold text-slate-900 mb-3">{step.title}</h3>
+                <p className="text-sm text-slate-500 leading-relaxed">
+                  {step.desc}
+                </p>
+              </div>
+            </div>
           ))}
         </div>
       </div>

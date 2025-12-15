@@ -1,71 +1,51 @@
+// sections/MaterialGuide.tsx
 "use client";
-import { HardHat, Feather, CheckCircle } from "lucide-react";
-import { motion } from "framer-motion";
-
-const MATERIALS = [
-  {
-    icon: Feather,
-    title: "PLA+ (Precision & Detail)",
-    benefit: "SUPERIOR FINISH, ECO-FRIENDLY, SPEED",
-    desc: "Engineered for maximum visual fidelity. Our PLA+ is tougher than standard PLA, offering better layer adhesion and a cleaner surface finish. Ideal for projects where aesthetic precision is the priority.",
-    chooseFor: "Detailed Prototypes, Corporate Gifts, Art Pieces, Display Models.",
-    color: "text-accent",
-  },
-  {
-    icon: HardHat,
-    title: "PETG (Strength & Resilience)",
-    benefit: "HEAT RESISTANT, IMPACT TOUGH, FUNCTIONAL",
-    desc: "Built for functional performance. PETG offers the durability needed for mechanical stress and temperature fluctuations. Perfect for PCB housings and lab equipment.",
-    chooseFor: "PCB Housings, Lab Equipment, Custom Fittings, End-use Parts.",
-    color: "text-accent",
-  },
-];
+import { Check } from "lucide-react";
 
 export default function MaterialGuide() {
   return (
-    <section id="materials" className="py-32 px-6 bg-slate-950/80 border-t border-white/5">
+    <section id="materials" className="py-32 px-6 bg-[#0E121E]">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-24 text-center">
-          <h2 className="text-4xl md:text-6xl font-heading text-white mb-6 uppercase tracking-tighter">
-            Curated <span className="text-accent-readable">Materials</span>
-          </h2>
-          <p className="text-gray-300 max-w-xl mx-auto text-lg font-medium">
-            We focus exclusively on high-performance filaments to ensure every part meets studio standards.
-          </p>
-        </div>
+        <div className="grid lg:grid-cols-2 gap-16">
+          <div>
+            <span className="text-accent text-xs font-bold tracking-widest uppercase block mb-3">Material Science</span>
+            <h2 className="text-4xl font-heading text-white mb-6">Application-Specific Polymers</h2>
+            <p className="text-gray-400 text-lg mb-8">
+              We don&apos;t just print plastic; we select the right engineering material for your thermal, mechanical, and chemical requirements.
+            </p>
+            <div className="grid sm:grid-cols-2 gap-4">
+               {["High-Temp Resistance", "Impact Modified", "ESD Safe", "Chemical Resistant"].map(feat => (
+                 <div key={feat} className="flex items-center gap-3 text-sm text-white">
+                   <div className="w-5 h-5 rounded-full bg-accent/20 flex items-center justify-center text-accent"><Check size={12}/></div>
+                   {feat}
+                 </div>
+               ))}
+            </div>
+          </div>
 
-        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-          {MATERIALS.map((material, index) => (
-            <motion.div 
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              className="p-8 md:p-10 bg-gray-900/50 border border-white/10 rounded-[2.5rem] flex flex-col hover:border-accent/50 transition-all duration-500 shadow-2xl"
-            >
-              <div className="flex items-center gap-5 mb-8">
-                <div className="w-14 h-14 flex items-center justify-center rounded-2xl bg-accent/10 text-accent">
-                  <material.icon size={32} />
-                </div>
-                <h3 className="text-2xl md:text-3xl font-heading text-white tracking-tight leading-none">{material.title}</h3>
+          <div className="space-y-4">
+            <div className="p-6 rounded-xl bg-white/5 border border-white/5">
+              <div className="flex justify-between items-baseline mb-2">
+                <h3 className="text-xl font-bold text-white">Engineering Grade</h3>
+                <span className="text-xs text-accent border border-accent/30 px-2 py-1 rounded">Production</span>
               </div>
-              
-              <p className="text-gray-300 text-base mb-8 leading-relaxed font-medium">
-                {material.desc}
+              <p className="text-sm text-gray-400 mb-4">PETG, ASA, ABS</p>
+              <p className="text-sm text-gray-300">
+                Functional parts requiring UV resistance, outdoor durability, or moderate heat deflection. Ideal for housings and mechanical brackets.
               </p>
+            </div>
 
-              <div className="mt-auto pt-8 border-t border-white/5">
-                <p className="text-sm font-black text-accent-readable uppercase tracking-[0.1em] flex items-center gap-2 mb-4">
-                  <CheckCircle size={18} className="shrink-0" /> {material.benefit}
-                </p>
-                <div className="bg-black/40 p-5 rounded-2xl border border-white/5">
-                    <p className="text-[10px] text-gray-500 uppercase font-black tracking-widest mb-2">Best for:</p>
-                    <p className="text-sm text-gray-200 font-bold leading-relaxed">{material.chooseFor}</p>
-                </div>
+            <div className="p-6 rounded-xl bg-white/5 border border-white/5">
+              <div className="flex justify-between items-baseline mb-2">
+                <h3 className="text-xl font-bold text-white">Rapid Prototyping</h3>
+                <span className="text-xs text-gray-400 border border-gray-700 px-2 py-1 rounded">Validation</span>
               </div>
-            </motion.div>
-          ))}
+              <p className="text-sm text-gray-400 mb-4">PLA+, Matte PLA</p>
+              <p className="text-sm text-gray-300">
+                Cost-effective, high-stiffness materials perfect for form checks, fit testing, and visual models.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>

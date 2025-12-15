@@ -1,36 +1,42 @@
-// visheshtnwr/karvyn3d-intro/karvyn3d-intro-41ef54dda356c1bc3e2c43bba9e8a441646cbe10/constants/services.ts
+// constants/services.ts
 
-import { Cpu, Gift, FlaskConical, Zap, BookOpen, Component } from "lucide-react";
+import { Factory, FlaskConical, Box, Cpu, GraduationCap, Layers } from "lucide-react";
 
 export const SERVICES = [
   {
-    title: "Scalable Micro-Manufacturing",
-    description: "Precision production runs for PCB housings and custom mechanical parts. Scalability without the factory gatekeepers.",
-    icon: Component,
-    imageUrl: "/images/pCB Housing.jpeg", // ADDED
+    title: "Bridge Manufacturing",
+    description: "Launch products weeks ahead of hard tooling. Scalable production of 50–1,000 units using engineering-grade thermoplastics. Ideal for pilot runs and market testing.",
+    icon: Factory,
+    imageUrl: "/images/PCB Housing.jpg", 
   },
   {
-    title: "Next-Gen Corporate Branding",
-    description: "Bespoke employee joining kits, themed marketing items, and gifts that actually stay on the desk. Design-led impact.",
-    icon: Gift,
-    imageUrl: "/images/service-corporate-branding.jpg", // ADDED
+    title: "PCB & Electronics Enclosures",
+    description: "ESD-safe and UL-rated housings designed for perfect component fitment. We handle snap-fit optimization, thermal management, and assembly tolerances.",
+    icon: Cpu,
+    imageUrl: "/images/service-prototyping.jpg", 
   },
   {
-    title: "Specialized Labware & R&D",
-    description: "Custom design and fabrication of lab equipment and research-grade hardware tailored to your specific experimentation.",
+    title: "Custom Labware Solutions",
+    description: "Bespoke scientific apparatus for specific experimental protocols. From micro-fluidic jigs to custom centrifuge rotors, we fabricate what catalogues don't sell.",
     icon: FlaskConical,
-    imageUrl: "/images/service-labware-rnd.jpg", // ADDED
+    imageUrl: "/images/service-labware-rnd.jpg", 
   },
   {
-    title: "High-Fidelity Prototyping",
-    description: "Move from CAD to physical at record speed. Rapid iterations that help you validate concepts and de-risk your project.",
-    icon: Zap,
-    imageUrl: "/images/service-prototyping.jpg", // ADDED
+    title: "Corporate Brand Engineering",
+    description: "Physicalize your brand values. Premium, functional onboarding kits and executive artifacts—not just trinkets. Vapor-smoothed finishes and Pantone matching available.",
+    icon: Box,
+    imageUrl: "/images/service-corporate-branding.jpg", 
   },
   {
-    title: "Academic & Research Products",
-    description: "Precision-built components for educational modules and complex research projects where off-the-shelf isn't an option.",
-    icon: BookOpen,
-    imageUrl: "/images/service-academic-products.jpg", // ADDED
+    title: "Advanced Design Validation",
+    description: "Move from 'looks-like' to 'works-like'. High-fidelity functional prototyping to validate ergonomics, assembly, and mechanical stress before mass production.",
+    icon: Layers,
+    imageUrl: "/images/service-prototyping.jpg", 
+  },
+  {
+    title: "Institutional Research Support",
+    description: "Partnering with universities for grant-backed projects. We provide infrastructure for student innovation and complex geometry fabrication for PhD research.",
+    icon: GraduationCap,
+    imageUrl: "/images/service-academic-products.jpg", 
   }
 ];

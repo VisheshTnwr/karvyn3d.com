@@ -1,3 +1,5 @@
+// visheshtnwr/karvyn3d-intro/karvyn3d-intro-78d1eaef01080c82c20979b8cc36c0727f29a536/app/layout.tsx
+
 import "./globals.css";
 import { Inter, Poppins } from "next/font/google";
 
@@ -22,7 +24,8 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable} scroll-smooth`}>
-      <body className="antialiased bg-gray-950 text-gray-50 font-sans">
+      {/* UPDATED BG AND TEXT COLOR */}
+      <body className="antialiased bg-gray-50 text-gray-950 font-sans">
         {children}
       </body>
     </html>
