@@ -120,7 +120,7 @@ export default function Hero() {
           className="relative hidden lg:block h-[600px] w-full bg-slate-50 rounded-[2rem] border border-slate-200 shadow-xl overflow-hidden"
         >
           {/* Using the component variable name PcbHousingScene as defined above */}
-           <PcbHousingScene />
+           {/* <PcbHousingScene /> */}
            
            {/* Overlay Label */}
            <div className="absolute bottom-6 left-8 pointer-events-none">

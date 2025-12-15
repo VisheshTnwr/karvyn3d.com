@@ -1,10 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-inter), sans-serif;
-  --font-heading: var(--font-poppins), sans-serif;
-  --color-accent: #ea580c; /* Industrial Orange (high visibility, professional) */
-  --color-surface: #ffffff;
+  /* Using a contrasting Orange for the Light Theme accent */
+  --color-accent: #ea580c; 
 }
 
 :root {
@@ -12,23 +10,21 @@
 }
 
 body {
-    font-family: var(--font-sans), sans-serif;
+    /* Light Mode Background */
     background-color: #ffffff;
-    color: #0f172a; /* Slate 900 for primary text */
+    /* Dark Text */
+    color: #0f172a; 
+    font-family: var(--font-sans), sans-serif;
     -webkit-font-smoothing: antialiased;
 }
 
-/* Typography Enhancements for Readability */
+/* Ensure headings are dark for readability */
 h1, h2, h3, h4, h5, h6 {
-    letter-spacing: -0.02em;
     color: #0f172a;
+    letter-spacing: -0.02em; 
 }
 
-p {
-    color: #475569; /* Slate 600 for body text */
-}
-
-/* High-Readability Accent Text */
+/* Accent text for Light Theme */
 .text-accent-readable {
     color: var(--color-accent);
     font-weight: 700;
@@ -39,10 +35,10 @@ p {
     font-weight: 700;
 }
 
-/* Professional Card Styles - Light Theme */
+/* Card Styles for Light Theme (clean borders/shadows) */
 .industrial-card {
     background: #ffffff;
-    border: 1px solid #e2e8f0; /* Slate 200 */
+    border: 1px solid #e2e8f0; 
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
     transition: all 0.3s ease;
 }
