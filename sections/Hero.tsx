@@ -3,12 +3,13 @@
 import { motion } from "framer-motion";
 import dynamic from 'next/dynamic';
 
-// Dynamically import the PCB Housing scene to prevent SSR issues
-const PcbHousingScene = dynamic(() => import('@/components/DroneSkeletonScene'), { 
+// DYNAMIC IMPORT FIX: Correctly imports the stable SinglePcbScene component
+const PcbHousingScene = dynamic(() => import('@/components/SinglePcbScene'), { 
   ssr: false,
   loading: () => (
-    <div className="flex items-center justify-center w-full h-full bg-slate-100 text-slate-300">
-      <span className="animate-pulse font-heading font-bold">LOADING PCB HOUSING MODEL...</span>
+    // Light Theme loading style
+    <div className="flex items-center justify-center w-full h-full bg-slate-50 text-slate-300">
+      <span className="animate-pulse font-heading font-bold">LOADING PRECISION HOUSING...</span>
     </div>
   )
 });
@@ -37,6 +38,7 @@ const itemVariants = {
 
 export default function Hero() {
   return (
+    // EXACT STYLE REQUESTED: Light theme background and min-height setting
     <section className="relative min-h-[90vh] flex items-center pt-32 pb-20 px-6 bg-white overflow-hidden">
       {/* Subtle Technical Grid Background - Blueprint Style */}
       <div className="absolute inset-0 opacity-[0.4]" 
@@ -117,6 +119,7 @@ export default function Hero() {
           transition={{ duration: 1, delay: 0.4 }}
           className="relative hidden lg:block h-[600px] w-full bg-slate-50 rounded-[2rem] border border-slate-200 shadow-xl overflow-hidden"
         >
+          {/* Using the component variable name PcbHousingScene as defined above */}
            <PcbHousingScene />
            
            {/* Overlay Label */}
