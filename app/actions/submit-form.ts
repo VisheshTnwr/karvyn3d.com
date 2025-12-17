@@ -1,6 +1,7 @@
 'use server';
+import { Resend } from 'resend';
 
-import { google } from 'googleapis';
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 type ContactFormData = {
   name: string;
@@ -12,34 +13,33 @@ type ContactFormData = {
 
 export async function submitToGoogleSheets(data: ContactFormData) {
   try {
-    const auth = new google.auth.GoogleAuth({
-      credentials: {
-        client_email: process.env.GOOGLE_SHEETS_CLIENT_EMAIL!,
-        private_key: process.env.GOOGLE_SHEETS_PRIVATE_KEY!.replace(/\\n/g, '\n'),
-      },
-      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+    const { data: emailData, error } = await resend.emails.send({
+      from: 'Karvyn3D <onboarding@resend.dev>',
+      to: 'visheshtnwr@gmail.com',
+      subject: `New Project: ${data.service} from ${data.name}`,
+      html: `
+        <h2>New Project Inquiry</h2>
+        <p><strong>Name:</strong> ${data.name}</p>
+        <p><strong>Email:</strong> ${data.email}</p>
+        <p><strong>Service Requested:</strong> ${data.service}</p>
+        <p><strong>Estimated Volume:</strong> ${data.volume}</p>
+        <p><strong>Details:</strong> ${data.message}</p>
+      `,
+      replyTo: data.email,
     });
 
-    const sheets = google.sheets({ version: 'v4', auth });
-
-    await sheets.spreadsheets.values.append({
-      spreadsheetId: process.env.GOOGLE_SHEETS_SPREADSHEET_ID!,
-      range: 'Sheet1!A:E',
-      valueInputOption: 'USER_ENTERED',
-      requestBody: {
-        values: [[
-          data.name,
-          data.email,
-          data.service,
-          data.volume,
-          data.message,
-        ]],
-      },
-    });
+    if (error) {
+      console.error('Resend Error:', error);
+      return { success: false, error: 'Email could not be sent.' };
+    }
 
     return { success: true };
-  } catch (error) {
-    console.error('Sheets Error:', error);
-    return { success: false, error: 'Failed to submit request.' };
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error('Submission Error:', error.message);
+    } else {
+      console.error('Submission Error:', error);
+    }
+    return { success: false, error: 'An unexpected error occurred.' };
   }
 }
