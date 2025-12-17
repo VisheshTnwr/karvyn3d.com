@@ -1,0 +1,45 @@
+'use server';
+
+import { google } from 'googleapis';
+
+type ContactFormData = {
+  name: string;
+  email: string;
+  service: string;
+  volume: string;
+  message: string;
+};
+
+export async function submitToGoogleSheets(data: ContactFormData) {
+  try {
+    const auth = new google.auth.GoogleAuth({
+      credentials: {
+        client_email: process.env.GOOGLE_SHEETS_CLIENT_EMAIL!,
+        private_key: process.env.GOOGLE_SHEETS_PRIVATE_KEY!.replace(/\\n/g, '\n'),
+      },
+      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+    });
+
+    const sheets = google.sheets({ version: 'v4', auth });
+
+    await sheets.spreadsheets.values.append({
+      spreadsheetId: process.env.GOOGLE_SHEETS_SPREADSHEET_ID!,
+      range: 'Sheet1!A:E',
+      valueInputOption: 'USER_ENTERED',
+      requestBody: {
+        values: [[
+          data.name,
+          data.email,
+          data.service,
+          data.volume,
+          data.message,
+        ]],
+      },
+    });
+
+    return { success: true };
+  } catch (error) {
+    console.error('Sheets Error:', error);
+    return { success: false, error: 'Failed to submit request.' };
+  }
+}

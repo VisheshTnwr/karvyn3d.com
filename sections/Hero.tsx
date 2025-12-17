@@ -1,32 +1,39 @@
-// sections/Hero.tsx
 "use client";
-import { motion } from "framer-motion";
-import dynamic from 'next/dynamic';
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect } from "react";
+import Image from "next/image";
 
-// DYNAMIC IMPORT FIX: Correctly imports the stable SinglePcbScene component
-// const PcbHousingScene = dynamic(() => import('@/components/SinglePcbScene'), { 
-//   ssr: false,
-//   loading: () => (
-//     // Light Theme loading style
-//     <div className="flex items-center justify-center w-full h-full bg-slate-50 text-slate-300">
-//       <span className="animate-pulse font-heading font-bold">LOADING PRECISION HOUSING...</span>
-//     </div>
-//   )
-// });
+// Image array using the assets available in your public folder
+const carouselImages = [
+  {
+    src: "/images/Drone.jpg",
+    label: "Professional Drone Components • Carbon Fiber Nylon"
+  },
+  {
+    src: "/images/PCB Housing.jpg",
+    label: "PCB Housing Prototype • Internal Fitment Check"
+  },
+  {
+    src: "/images/Lab Equipment.png",
+    label: "Laboratory Instrumentation • Chemical Resistant"
+  },
+  {
+    src: "/images/Corporate Gifting.png",
+    label: "Custom Corporate Solutions • Short-Run Batch"
+  },
+];
 
-// 1. Define the container variant with stagger delay
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      delayChildren: 0.2, // Delay before the first child starts animating (0.2s initial pause)
-      staggerChildren: 0.15, // Delay between each successive child animation
+      delayChildren: 0.2,
+      staggerChildren: 0.15,
     },
   },
 };
 
-// 2. Define the individual item variant (slide up and fade in)
 const itemVariants = {
   hidden: { opacity: 0, y: 30 },
   visible: {
@@ -37,8 +44,17 @@ const itemVariants = {
 };
 
 export default function Hero() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Auto-advance the carousel every 5 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % carouselImages.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
-    // EXACT STYLE REQUESTED: Light theme background and min-height setting
     <section className="relative min-h-[90vh] flex items-center pt-32 pb-20 px-6 bg-white overflow-hidden">
       {/* Subtle Technical Grid Background - Blueprint Style */}
       <div className="absolute inset-0 opacity-[0.4]" 
@@ -46,13 +62,12 @@ export default function Hero() {
       </div>
 
       <div className="max-w-7xl mx-auto w-full relative z-10 grid lg:grid-cols-2 gap-16 items-center">
-        {/* Left Column: Text Content (Staggered Animation) */}
+        {/* Left Column: Text Content */}
         <motion.div
           initial="hidden"
           animate="visible"
           variants={containerVariants}
         >
-          {/* Child 1: Badge */}
           <motion.span
             variants={itemVariants}
             className="inline-flex items-center gap-2 px-3 py-1 rounded border border-slate-200 bg-slate-50 text-slate-600 text-xs font-bold tracking-widest uppercase mb-8 shadow-sm"
@@ -61,7 +76,6 @@ export default function Hero() {
             Agile Manufacturing Partner
           </motion.span>
 
-          {/* Child 2: Heading */}
           <motion.h1
             variants={itemVariants}
             className="text-5xl lg:text-7xl font-heading text-slate-900 mb-6 leading-[1.1] tracking-tight"
@@ -70,7 +84,6 @@ export default function Hero() {
             <span className="text-accent">Zero Tooling.</span>
           </motion.h1>
 
-          {/* Child 3: Subheading/Tagline */}
           <motion.p
             variants={itemVariants}
             className="text-xl text-slate-600 mb-10 max-w-xl leading-relaxed font-medium"
@@ -79,7 +92,6 @@ export default function Hero() {
             Deploy your product <strong>weeks ahead of schedule</strong> with our industrial bridge manufacturing and design validation services.
           </motion.p>
 
-          {/* Child 4: Buttons */}
           <motion.div
             variants={itemVariants}
             className="flex flex-col sm:flex-row gap-4"
@@ -92,7 +104,6 @@ export default function Hero() {
             </a>
           </motion.div>
 
-          {/* Specialized Areas Bar - Animated to follow the main content load */}
           <motion.div
              initial={{ opacity: 0, y: 30 }}
              animate={{ opacity: 1, y: 0 }}
@@ -112,23 +123,53 @@ export default function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* Right Column: 3D Visualization */}
+        {/* Right Column: Image Carousel Frame */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.4 }}
-          className="relative hidden lg:block h-[600px] w-full bg-slate-50 rounded-[2rem] border border-slate-200 shadow-xl overflow-hidden"
+          className="relative hidden lg:block h-[600px] w-full bg-slate-100 rounded-[2rem] border border-slate-200 shadow-2xl overflow-hidden"
         >
-          {/* Using the component variable name PcbHousingScene as defined above */}
-           {/* <PcbHousingScene /> */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.7, ease: "easeInOut" }}
+              className="absolute inset-0"
+            >
+              <Image
+                src={carouselImages[currentIndex].src}
+                alt="Manufacturing Gallery"
+                fill
+                className="object-cover"
+                priority
+              />
+              {/* Subtle gradient overlay to ensure text readability */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+            </motion.div>
+          </AnimatePresence>
            
-           {/* Overlay Label */}
-           <div className="absolute bottom-6 left-8 pointer-events-none">
-             <div className="flex items-center gap-2">
+          {/* Dynamic Overlay Label */}
+          <div className="absolute bottom-6 left-8 z-20">
+             <div className="flex items-center gap-2 bg-white/90 backdrop-blur-sm py-2 px-4 rounded-full border border-slate-200 shadow-sm">
                <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse"></div>
-               <span className="text-[10px] font-bold tracking-widest uppercase text-slate-400">PCB Housing Prototype • Internal Fitment Check</span>
+               <span className="text-[10px] font-bold tracking-widest uppercase text-slate-600">
+                 {carouselImages[currentIndex].label}
+               </span>
              </div>
-           </div>
+          </div>
+
+          {/* Carousel Progress Indicators */}
+          <div className="absolute bottom-8 right-8 flex gap-2 z-20">
+            {carouselImages.map((_, i) => (
+              <div 
+                key={i}
+                className={`h-1 rounded-full transition-all duration-300 ${i === currentIndex ? 'w-8 bg-accent' : 'w-2 bg-white/50'}`}
+              />
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>
