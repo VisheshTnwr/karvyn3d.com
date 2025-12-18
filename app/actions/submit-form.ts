@@ -15,7 +15,7 @@ export async function submitToGoogleSheets(data: ContactFormData) {
   try {
     const { data: emailData, error } = await resend.emails.send({
       from: 'Karvyn3D <onboarding@resend.dev>',
-      to: 'visheshtnwr@gmail.com',
+      to: 'info@karvyn3d.com',
       subject: `New Project: ${data.service} from ${data.name}`,
       html: `
         <h2>New Project Inquiry</h2>
