@@ -11,7 +11,7 @@ export const SERVICES = [
   },
   {
     title: "PCB & Electronics Enclosures",
-    description: "ESD-safe and UL-rated housings designed for perfect component fitment. We handle snap-fit optimization, thermal management, and assembly tolerances.",
+    description: "ESD-safe housings designed for perfect component fitment. We handle snap-fit optimization, thermal management, and assembly tolerances.",
     icon: Cpu,
     imageUrl: "/images/service-prototyping.jpg", 
   },

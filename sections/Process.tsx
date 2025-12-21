@@ -4,7 +4,7 @@ import { FileSearch, Box, ShieldCheck, Truck } from "lucide-react";
 const steps = [
   { 
     icon: FileSearch,
-    title: "DfAM Audit", 
+    title: "Design Review", 
     desc: "Our engineers review your CAD for wall thickness, tolerances, and printability. We propose optimizations to reduce cost and failure risk." 
   },
   { 
