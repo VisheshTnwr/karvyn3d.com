@@ -109,6 +109,7 @@ export default function Contact() {
                       <option>PCB Housing / Electronics</option>
                       <option>Corporate Branding / Kits</option>
                       <option>Labware Engineering</option>
+                      <option>Other</option>
                     </select>
                   </div>
                   <div className="space-y-2">
