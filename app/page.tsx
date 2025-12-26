@@ -70,7 +70,7 @@ export default function Home() {
                   href="tel:+917015317181" 
                   className="block text-xl font-bold text-slate-900 hover:text-orange-600 transition-colors tracking-tight"
                 >
-                  Mob: +91 88148 84014
+                  +91 88148 84014
                 </a>
               </div>
 
