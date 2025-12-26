@@ -22,7 +22,7 @@ export default function Navbar() {
           <Link href="#about" className="text-sm font-semibold text-slate-600 hover:text-accent transition-colors">Why Us</Link>
           <Link href="#process" className="text-sm font-semibold text-slate-600 hover:text-accent transition-colors">Workflow</Link>
           <Link href="#contact" className="px-6 py-2.5 text-sm bg-slate-900 text-white font-bold rounded-lg hover:bg-accent hover:text-white transition-all shadow-md">
-            Request Quote
+            Contact Us !
           </Link>
         </div>
       </nav>

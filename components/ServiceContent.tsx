@@ -1,267 +1,28 @@
-// "use client";
-// import { motion } from 'framer-motion';
-// import Image from "next/image";
-// import { SERVICES } from "@/constants/services";
-// import { useState } from "react";
-
-// export default function ServiceContent() {
-//   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
-//   return (
-//     <>
-//       <div className="mb-16 text-center lg:text-left">
-//         <h2 className="text-4xl font-heading text-slate-900 mb-4">Core Capabilities</h2>
-//         <p className="text-slate-500 text-lg max-w-2xl lg:mx-0 mx-auto">
-//           From single bespoke research tools to batches of 1,000 retail-ready units. 
-//           Our facility is optimized for high-mix, low-volume production.
-//         </p>
-//       </div>
-
-//       <div className="relative w-full px-4">
-        
-//         {/* REFINED CENTRAL INDICATOR 
-//             - pointer-events-none ensures users can't "click" it
-//             - High contrast orange highlights to command attention
-//         */}
-//         <div className="hidden lg:flex absolute left-1/2 top-0 bottom-0 -translate-x-1/2 z-0 flex-col justify-around py-32 pointer-events-none">
-//           {[1, 2].map((i) => (
-//             <motion.div 
-//               key={i}
-//               animate={{ 
-//                 opacity: hoveredIndex !== null ? 0 : 1,
-//                 scale: hoveredIndex !== null ? 0.8 : 1
-//               }}
-//               className="flex flex-col items-center gap-4"
-//             >
-//               <div className="flex items-center gap-12">
-//                 {/* Left Pointer */}
-//                 <motion.div 
-//                   animate={{ x: [-10, 0, -10] }} 
-//                   transition={{ repeat: Infinity, duration: 1.2 }}
-//                   className="flex gap-1 text-orange-500 font-black text-2xl"
-//                 >
-//                   <span>«</span><span>«</span>
-//                 </motion.div>
-                
-//                 <span className="text-slate-400 font-black tracking-[0.4em] uppercase text-[11px] bg-white px-6 py-2 border border-slate-100 rounded-full shadow-sm whitespace-nowrap">
-//                   Hover for more details
-//                 </span>
-
-//                 {/* Right Pointer */}
-//                 <motion.div 
-//                   animate={{ x: [10, 0, 10] }} 
-//                   transition={{ repeat: Infinity, duration: 1.2 }}
-//                   className="flex gap-1 text-orange-500 font-black text-2xl"
-//                 >
-//                   <span>»</span><span>»</span>
-//                 </motion.div>
-//               </div>
-              
-//               <div className="h-[1px] w-80 bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
-//             </motion.div>
-//           ))}
-//         </div>
-
-//         {/* GRID: 2 columns with edge alignment */}
-//         <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-y-24 w-full relative z-10">
-//           {SERVICES.map((service, index) => {
-//             const isRightEdge = (index + 1) % 2 === 0;
-//             const morphId = `title-${index}`;
-//             const iconMorphId = `icon-${index}`;
-//             const isHovered = hoveredIndex === index;
-
-//             return (
-//               <div 
-//                 key={index} 
-//                 className={`flex w-full ${isRightEdge ? 'justify-end' : 'justify-start'}`}
-//               >
-//                 <motion.div 
-//                   initial="initial"
-//                   whileHover="hovered"
-//                   onHoverStart={() => setHoveredIndex(index)}
-//                   onHoverEnd={() => setHoveredIndex(null)}
-//                   className="relative h-[380px] w-full max-w-lg rounded-2xl border border-slate-200 bg-white shadow-lg cursor-pointer group hover:z-50 transition-all duration-300"
-//                 >
-//                   {/* BACK LAYER: Specification Sheet (Blueprint) */}
-//                   <div 
-//                     className="absolute inset-0 z-10 p-10 flex flex-col justify-between rounded-2xl"
-//                     style={{ 
-//                       backgroundColor: '#f8fafc',
-//                       backgroundImage: 'linear-gradient(#e2e8f0 1px, transparent 1px), linear-gradient(90deg, #e2e8f0 1px, transparent 1px)', 
-//                       backgroundSize: '24px 24px' 
-//                     }}
-//                   >
-//                     <div className="flex flex-col gap-6">
-//                       <div className="flex items-center gap-4 min-h-[40px]">
-//                         {isHovered && (
-//                           <>
-//                             <motion.div layoutId={iconMorphId} className="text-orange-600">
-//                               <service.icon size={26} />
-//                             </motion.div>
-//                             <motion.h3 
-//                               layoutId={morphId}
-//                               transition={{ type: "spring", stiffness: 100, damping: 20 }}
-//                               className="text-xl font-bold text-slate-900 leading-tight"
-//                             >
-//                               {service.title}
-//                             </motion.h3>
-//                           </>
-//                         )}
-//                       </div>
-
-//                       <motion.div
-//                         variants={{
-//                           initial: { opacity: 0, x: -15 },
-//                           hovered: { opacity: 1, x: 0, transition: { delay: 0.15 } }
-//                         }}
-//                       >
-//                         <span className="text-[10px] font-bold tracking-[0.3em] text-orange-600 uppercase mb-3 block border-b border-orange-100 pb-2">
-//                           Engineering Specifications
-//                         </span>
-//                         <p className="text-sm text-slate-800 font-semibold leading-relaxed">
-//                           {service.description}
-//                         </p>
-//                       </motion.div>
-//                     </div>
-
-//                     <motion.div
-//                       variants={{
-//                         initial: { opacity: 0 },
-//                         hovered: { opacity: 1, transition: { delay: 0.25 } }
-//                       }}
-//                       className="pt-4 border-t border-slate-200"
-//                     >
-//                       <div className="text-slate-900 text-[10px] font-bold uppercase tracking-widest flex items-center gap-2 group-hover:text-orange-600 transition-all">
-//                         Initialize Workflow <span className="text-orange-500">→</span>
-//                       </div>
-//                     </motion.div>
-//                   </div>
-
-//                   {/* FRONT LAYER: Sliding Image Cover + Footer Heading */}
-//                   <motion.div 
-//                     variants={{
-//                       initial: { x: 0 },
-//                       hovered: { x: isRightEdge ? "-100%" : "100%" }
-//                     }}
-//                     transition={{ type: "spring", stiffness: 90, damping: 20 }}
-//                     className="absolute inset-0 z-20 w-full h-full rounded-2xl bg-white flex flex-col overflow-hidden shadow-md group-hover:shadow-2xl transition-shadow duration-300"
-//                   >
-//                     <div className="relative w-full h-3/4 overflow-hidden">
-//                       <Image 
-//                         src={service.imageUrl} 
-//                         alt={service.title}
-//                         fill
-//                         className="object-cover"
-//                       />
-//                     </div>
-                    
-//                     <div className="w-full h-1/4 flex items-center px-8 bg-white border-t border-slate-100">
-//                       <div className="flex items-center gap-4">
-//                         {!isHovered && (
-//                           <>
-//                             <motion.div layoutId={iconMorphId} className="text-orange-500">
-//                               <service.icon size={26} />
-//                             </motion.div>
-//                             <motion.h3 
-//                               layoutId={morphId}
-//                               transition={{ type: "spring", stiffness: 100, damping: 20 }}
-//                               className="text-xl font-bold text-slate-900 leading-tight"
-//                             >
-//                               {service.title}
-//                             </motion.h3>
-//                           </>
-//                         )}
-//                       </div>
-//                     </div>
-//                   </motion.div>
-//                 </motion.div>
-//               </div>
-//             );
-//           })}
-//         </div>
-//       </div>
-//     </>
-//   );
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 "use client";
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Image from "next/image";
 import { SERVICES } from "@/constants/services";
+import { useState, useEffect } from "react";
+import { X, ArrowRight } from "lucide-react"; 
 
 export default function ServiceContent() {
+  const [selectedService, setSelectedService] = useState<(typeof SERVICES)[0] | null>(null);
+
+  // --- SCROLL LOCK LOGIC ---
+  useEffect(() => {
+    if (selectedService) {
+      // Disable scrolling when modal is open
+      document.body.style.overflow = 'hidden';
+    } else {
+      // Re-enable scrolling when modal is closed
+      document.body.style.overflow = 'unset';
+    }
+    // Cleanup on unmount
+    return () => { document.body.style.overflow = 'unset'; };
+  }, [selectedService]);
+
   return (
-    <section className="py-20">
+    <section className="py-20 relative">
       <div className="mb-20 text-center lg:text-left">
         <h2 className="text-4xl font-heading text-slate-900 mb-4 tracking-tight">Core Capabilities</h2>
         <p className="text-slate-500 text-lg max-w-2xl lg:mx-0 mx-auto leading-relaxed">
@@ -270,10 +31,8 @@ export default function ServiceContent() {
         </p>
       </div>
 
-      {/* STACKED LAYOUT: One service per line, alternating directions */}
       <div className="flex flex-col gap-16 lg:gap-24 w-full px-4">
         {SERVICES.map((service, index) => {
-          // Flip direction based on index (Card-Image vs Image-Card)
           const isFlipped = index % 2 !== 0;
 
           return (
@@ -282,10 +41,9 @@ export default function ServiceContent() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
               className={`flex flex-col ${isFlipped ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-stretch w-full max-w-6xl mx-auto rounded-3xl overflow-hidden shadow-xl border border-slate-200 group bg-white`}
             >
-              {/* CONTENT CARD (The old "Details" pop-up is now the main left/right side) */}
+              {/* CONTENT SIDE */}
               <div 
                 className="flex-1 p-8 lg:p-12 flex flex-col justify-between relative"
                 style={{ 
@@ -303,41 +61,131 @@ export default function ServiceContent() {
                       {service.title}
                     </h3>
                   </div>
-
                   <span className="text-[10px] font-bold tracking-[0.3em] text-orange-600 uppercase mb-4 block border-b border-orange-100 pb-2 w-fit">
                     Engineering Specs
                   </span>
-                  
                   <p className="text-lg text-slate-700 font-medium leading-relaxed mb-8">
                     {service.description}
                   </p>
                 </div>
 
                 <div className="relative z-10 pt-6 border-t border-slate-200">
-                  <a 
-                    href="#contact" 
-                    className="inline-flex items-center gap-3 text-slate-900 font-bold uppercase tracking-widest text-xs hover:text-orange-600 transition-colors"
+                  {/* --- NEW STYLED BOLD BUTTON --- */}
+                  <button 
+                    onClick={() => setSelectedService(service)}
+                    className="group/btn relative inline-flex items-center gap-4 px-6 py-3 bg-white border-2 border-slate-900 rounded-full text-slate-900 font-black uppercase tracking-widest text-[10px] transition-all duration-300 hover:bg-slate-900 hover:text-white shadow-[4px_4px_0px_0px_rgba(249,115,22,1)] active:shadow-none active:translate-x-[2px] active:translate-y-[2px]"
                   >
-                    Initialize Order <span className="text-orange-500 text-lg">→</span>
-                  </a>
+                    Learn More Detail
+                    <ArrowRight size={16} className="transition-transform group-hover/btn:translate-x-1" />
+                  </button>
                 </div>
               </div>
 
-              {/* IMAGE SIDE: Stitched physically to the card */}
+              {/* IMAGE SIDE */}
               <div className="flex-1 relative min-h-[350px] overflow-hidden">
                 <Image 
                   src={service.imageUrl} 
-                  alt={service.title}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
+                  alt={service.title} 
+                  fill 
+                  className="object-cover transition-transform duration-700 group-hover:scale-110" 
                 />
-                {/* Subtle overlay that lightens on hover */}
                 <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition-colors duration-500" />
               </div>
             </motion.div>
           );
         })}
       </div>
+
+      {/* DETAILED POP-UP MODAL (Kept exactly as it was) */}
+      <AnimatePresence>
+        {selectedService && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 lg:p-10">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedService(null)}
+              className="absolute inset-0 bg-slate-900/60 backdrop-blur-md"
+            />
+
+            <motion.div 
+              layoutId={selectedService.title}
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="relative w-full max-w-5xl max-h-[90vh] overflow-y-auto bg-white rounded-3xl shadow-2xl border border-slate-200"
+            >
+              <button 
+                onClick={() => setSelectedService(null)}
+                className="absolute top-6 right-6 z-50 p-2 bg-white rounded-full shadow-lg border border-slate-100 hover:text-orange-600 transition-colors"
+              >
+                <X size={24} />
+              </button>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 h-[300px] md:h-[400px] gap-1 p-2 bg-slate-100">
+                <div className="relative h-full w-full md:col-span-2 rounded-tl-2xl overflow-hidden">
+                  <Image src={selectedService.imageUrl} alt="Main detail" fill className="object-cover" />
+                </div>
+                <div className="grid grid-rows-2 gap-1 h-full">
+                  <div className="relative h-full w-full rounded-tr-2xl overflow-hidden bg-slate-200">
+                     <Image src={selectedService.imageUrl} alt="Detail 2" fill className="object-cover opacity-80" />
+                  </div>
+                  <div className="relative h-full w-full overflow-hidden bg-slate-300">
+                     <Image src={selectedService.imageUrl} alt="Detail 3" fill className="object-cover opacity-60" />
+                  </div>
+                </div>
+              </div>
+
+              <div 
+                className="p-8 lg:p-16"
+                style={{ 
+                  backgroundColor: '#f8fafc',
+                  backgroundImage: 'linear-gradient(#e2e8f0 1.5px, transparent 1.5px), linear-gradient(90deg, #e2e8f0 1.5px, transparent 1.5px)', 
+                  backgroundSize: '40px 40px' 
+                }}
+              >
+                <div className="max-w-3xl">
+                  <div className="flex items-center gap-4 mb-8">
+                    <div className="p-4 bg-white rounded-2xl shadow-md text-orange-600">
+                      <selectedService.icon size={40} />
+                    </div>
+                    <h2 className="text-3xl lg:text-5xl font-bold text-slate-900 tracking-tight">
+                      {selectedService.title}
+                    </h2>
+                  </div>
+
+                  <div className="space-y-8">
+                    <div>
+                      <h4 className="text-orange-600 font-bold uppercase tracking-[0.2em] text-xs mb-4">Project Overview</h4>
+                      <p className="text-xl text-slate-700 leading-relaxed font-medium">
+                        {selectedService.description} This advanced process is utilized for creating high-precision industrial components with extreme structural integrity. 
+                      </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-8 border-t border-slate-200">
+                      <div>
+                        <h4 className="text-slate-900 font-bold uppercase tracking-widest text-xs mb-4">Technical Capabilities</h4>
+                        <ul className="space-y-3 text-slate-600 font-medium">
+                          <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-orange-500"/> Precision: ±0.05mm</li>
+                          <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-orange-500"/> Material: Industrial Grade Thermo-Polymers</li>
+                          <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-orange-500"/> Lead Time: 24-48 Hours</li>
+                        </ul>
+                      </div>
+                      <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <h4 className="text-slate-900 font-bold uppercase tracking-widest text-xs mb-4">Ready to Start?</h4>
+                        <p className="text-sm text-slate-500 mb-6">Our engineers are ready to review your CAD files and provide a technical feasibility report.</p>
+                        <a href="#contact" onClick={() => setSelectedService(null)} className="block w-full text-center bg-slate-900 text-white py-4 rounded-xl font-bold hover:bg-orange-600 transition-colors">
+                          Request Technical Quote
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
