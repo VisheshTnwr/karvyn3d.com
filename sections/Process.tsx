@@ -1,7 +1,6 @@
 "use client";
-import { FileSearch, Box, ShieldCheck, Truck, CheckCircle2, Lock } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import { useState, useRef } from "react";
+import { FileSearch, Box, ShieldCheck, Truck, CheckCircle2 } from "lucide-react";
+import { motion } from "framer-motion";
 
 const steps = [
   { 
@@ -27,24 +26,30 @@ const steps = [
 ];
 
 export default function Process() {
-  const [visitedSteps, setVisitedSteps] = useState<number[]>([]);
-  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const isComplete = visitedSteps.length === steps.length;
-
-  const handleMouseEnter = (idx: number) => {
-    const isFirstStep = idx === 0;
-    const isPreviousStepVisited = visitedSteps.includes(idx - 1);
-
-    if ((isFirstStep || isPreviousStepVisited) && !visitedSteps.includes(idx)) {
-      hoverTimeoutRef.current = setTimeout(() => {
-        setVisitedSteps((prev) => [...prev, idx]);
-      }, 200); 
+  // Container variants to stagger the children (the steps)
+  const containerVariants = {
+    initial: {},
+    animate: {
+      transition: {
+        staggerChildren: 0.8, // Delay between each step starting its animation
+      }
     }
   };
 
-  const handleMouseLeave = () => {
-    if (hoverTimeoutRef.current) {
-      clearTimeout(hoverTimeoutRef.current);
+  const itemVariants = {
+    initial: { opacity: 0, y: 20 },
+    animate: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.5 }
+    }
+  };
+
+  const lineVariants = {
+    initial: { width: "0%" },
+    animate: { 
+      width: "100%",
+      transition: { duration: 0.8, ease: "easeInOut" } 
     }
   };
 
@@ -56,119 +61,100 @@ export default function Process() {
             Sequential Workflow
           </span>
           <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tighter">
-            {isComplete ? "System Optimized" : "Engineered for Reliability"}
+            Engineered for Reliability
           </h2>
         </div>
 
-        <div className="grid md:grid-cols-4 gap-12 lg:gap-8 relative">
+        {/* Auto-playing staggered animation on viewport enter */}
+        <motion.div 
+          variants={containerVariants}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true, amount: 0.3 }}
+          className="grid md:grid-cols-4 gap-12 lg:gap-8 relative"
+        >
           {steps.map((step, idx) => {
-            const isVisited = visitedSteps.includes(idx);
             const isLast = idx === steps.length - 1;
-            const isLocked = idx !== 0 && !visitedSteps.includes(idx - 1) && !isVisited;
 
             return (
-              <div 
+              <motion.div 
                 key={idx} 
-                onMouseEnter={() => handleMouseEnter(idx)}
-                onMouseLeave={handleMouseLeave}
-                className={`relative group flex flex-col items-center md:items-start ${isLocked ? 'cursor-not-allowed' : 'cursor-pointer'}`}
+                variants={itemVariants}
+                className="relative flex flex-col items-center md:items-start"
               >
+                {/* ICON & CONNECTOR LAYER */}
                 <div className="mb-10 relative w-full flex justify-center md:justify-start items-center">
                   
+                  {/* THE CONNECTOR LINE */}
                   {!isLast && (
                     <div className="hidden md:block absolute top-1/2 left-20 w-full h-[3px] -translate-y-1/2 z-0">
+                      {/* Gray Track */}
                       <div className="absolute inset-0 bg-slate-200 rounded-full" />
+                      
+                      {/* Auto-filling Orange Line */}
                       <motion.div 
-                        initial={{ width: "0%" }}
-                        animate={{ width: isVisited ? "100%" : "0%" }}
-                        transition={{ duration: 0.5, ease: "easeInOut" }}
+                        variants={lineVariants}
                         className="absolute inset-0 bg-orange-600 rounded-full shadow-[0_0_12px_rgba(249,115,22,0.6)]"
                       />
                     </div>
                   )}
 
+                  {/* The Icon Box */}
                   <motion.div 
-                    animate={{ 
-                      borderColor: isVisited ? "#ea580c" : "#e2e8f0",
-                      color: isVisited ? "#ea580c" : isLocked ? "#cbd5e1" : "#94a3b8",
-                      scale: isVisited ? 1.08 : 1,
-                      backgroundColor: isVisited ? "#ffffff" : "#f1f5f9"
+                    variants={{
+                        initial: { borderColor: "#e2e8f0", color: "#94a3b8", backgroundColor: "#f1f5f9" },
+                        animate: { 
+                            borderColor: "#ea580c", 
+                            color: "#ea580c", 
+                            backgroundColor: "#ffffff",
+                            transition: { delay: 0.5 } // Light up after the line reaches it
+                        }
                     }}
-                    className="w-20 h-20 border-2 rounded-2xl flex items-center justify-center relative shadow-sm z-10 bg-white"
+                    className="w-20 h-20 border-2 rounded-2xl flex items-center justify-center relative shadow-sm z-10"
                   >
-                    {!isVisited && !isLocked && (
+                    {/* Final Success Animation (Radiates only on the last icon) */}
+                    {isLast && (
+                      <motion.div 
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 3.5 }} // Triggers after all staggers complete
+                        className="absolute inset-0 flex items-center justify-center"
+                      >
+                         {/* Radiating Pulse */}
                         <motion.div 
-                            className="absolute bottom-0 left-0 right-0 bg-orange-50 -z-10 rounded-xl"
-                            initial={{ height: 0 }}
-                            whileHover={{ height: "100%" }}
-                            transition={{ duration: 0.5 }}
+                          initial={{ scale: 0.8, opacity: 0.5 }}
+                          animate={{ scale: 1.8, opacity: 0 }}
+                          transition={{ repeat: Infinity, duration: 2, ease: "easeOut" }}
+                          className="absolute inset-0 bg-orange-400 rounded-2xl -z-10"
                         />
+                        {/* Checkmark Badge */}
+                        <motion.div 
+                          initial={{ scale: 0, y: 10 }}
+                          animate={{ scale: 1, y: 0 }}
+                          className="absolute -top-4 -right-4 bg-green-500 text-white rounded-full p-1.5 shadow-xl border-2 border-white z-50"
+                        >
+                          <CheckCircle2 size={20} strokeWidth={3} />
+                        </motion.div>
+                      </motion.div>
                     )}
 
-                    {isLocked && <Lock size={16} className="absolute opacity-20" />}
-
-                    <AnimatePresence>
-                      {isLast && isComplete && (
-                        <>
-                          {/* --- RESTORED RADIATING PULSE --- */}
-                          <motion.div 
-                            initial={{ scale: 0.8, opacity: 0.5 }}
-                            animate={{ scale: 1.8, opacity: 0 }}
-                            transition={{ repeat: Infinity, duration: 2, ease: "easeOut" }}
-                            className="absolute inset-0 bg-orange-400 rounded-2xl -z-10"
-                          />
-                          
-                          <motion.div 
-                            initial={{ scale: 0, y: 10 }}
-                            animate={{ scale: 1, y: 0 }}
-                            className="absolute -top-4 -right-4 bg-green-500 text-white rounded-full p-1.5 shadow-xl border-2 border-white z-50"
-                          >
-                            <CheckCircle2 size={20} strokeWidth={3} />
-                          </motion.div>
-                        </>
-                      )}
-                    </AnimatePresence>
-
-                    <step.icon size={36} strokeWidth={isVisited ? 2 : 1.5} />
+                    <step.icon size={36} strokeWidth={1.5} />
                   </motion.div>
                 </div>
 
+                {/* TEXT LAYER */}
                 <div className="text-center md:text-left z-10">
-                  <motion.h3 
-                    animate={{ opacity: isLocked ? 0.3 : 1, color: isVisited ? "#0f172a" : "#64748b" }}
-                    className="text-lg font-bold mb-3"
-                  >
+                  <h3 className="text-lg font-bold mb-3 text-slate-900">
                     {step.title}
-                  </motion.h3>
-                  <motion.p 
-                    animate={{ opacity: isLocked ? 0.2 : 1 }}
-                    className="text-sm text-slate-500 leading-relaxed font-medium"
-                  >
+                  </h3>
+                  <p className="text-sm text-slate-500 leading-relaxed font-medium">
                     {step.desc}
-                  </motion.p>
+                  </p>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
-
-        <AnimatePresence>
-          {isComplete && (
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="mt-20 text-center"
-            >
-              <button 
-                onClick={() => setVisitedSteps([])}
-                className="group flex items-center gap-2 mx-auto text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 hover:text-orange-600 transition-all px-6 py-2 rounded-full border border-slate-200 hover:border-orange-200 bg-white shadow-sm"
-              >
-                <span className="group-hover:rotate-180 transition-transform duration-500 italic">⟲</span>
-                Reset Workflow Sequence
-              </button>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        </motion.div>
       </div>
     </section>
   );
