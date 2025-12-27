@@ -1,5 +1,5 @@
 "use client";
-import { Zap, Component, Users, Rocket, ArrowRight } from "lucide-react";
+import { Zap, Component, Users, Rocket } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
@@ -58,10 +58,10 @@ export default function About() {
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeIndex}
-                initial={{ opacity: 0, x: -30 }}
+                initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 30 }}
-                transition={{ duration: 0.4, ease: "circOut" }}
+                exit={{ opacity: 0, x: 10 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
                 className="space-y-8"
               >
                 <div className="w-16 h-1 bg-orange-600 rounded-full" />
@@ -82,29 +82,26 @@ export default function About() {
             </AnimatePresence>
           </div>
 
-          {/* RIGHT SIDE: THE CLICKABLE CONTROL TILES */}
+          {/* RIGHT SIDE: THE INTERACTIVE TILES */}
           <div className="space-y-6 order-1 lg:order-2">
             {aboutPoints.map((point, index) => {
               const isActive = activeIndex === index;
               
               return (
-                <motion.button
+                <div
                   key={index}
-                  onClick={() => setActiveIndex(index)}
-                  // cursor-pointer added here
-                  className={`w-full text-left p-6 lg:p-8 rounded-[2rem] border-2 transition-all duration-300 flex items-center gap-6 group relative cursor-pointer outline-none ${
+                  onMouseEnter={() => setActiveIndex(index)}
+                  className={`w-full text-left p-6 lg:p-8 rounded-[2rem] border-2 transition-all duration-300 flex items-center gap-6 group cursor-pointer outline-none ${
                     isActive 
-                      ? "border-orange-600 bg-white shadow-2xl shadow-orange-900/10 scale-105 z-10" 
-                      : "border-slate-50 bg-slate-50 hover:border-orange-200 hover:bg-white hover:shadow-xl hover:-translate-y-1"
+                      ? "border-orange-600 bg-white shadow-xl z-10" 
+                      : "border-slate-50 bg-slate-50 hover:border-orange-200"
                   }`}
-                  whileHover={!isActive ? { scale: 1.02 } : {}}
-                  whileTap={{ scale: 0.98 }}
                 >
                   {/* Icon Frame */}
                   <div className={`w-16 h-16 shrink-0 flex items-center justify-center rounded-2xl border-2 transition-all duration-500 ${
                     isActive 
-                      ? "bg-orange-600 text-white border-orange-600 rotate-12" 
-                      : "bg-white text-slate-400 border-slate-100 group-hover:border-orange-500 group-hover:text-orange-600"
+                      ? "bg-orange-600 text-white border-orange-600" 
+                      : "bg-white text-slate-400 border-slate-100 group-hover:text-orange-600 group-hover:border-orange-600"
                   }`}>
                     <point.icon size={32} />
                   </div>
@@ -115,17 +112,8 @@ export default function About() {
                     }`}>
                       {point.title}
                     </h5>
-                    {isActive && (
-                      <motion.div 
-                        initial={{ opacity: 0, y: 5 }} 
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-orange-600 text-[10px] font-black mt-2 flex items-center gap-2 uppercase tracking-[0.2em]"
-                      >
-                        Active Specification <ArrowRight size={12} />
-                      </motion.div>
-                    )}
                   </div>
-                </motion.button>
+                </div>
               );
             })}
           </div>
