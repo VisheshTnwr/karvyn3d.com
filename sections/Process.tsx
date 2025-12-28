@@ -1,6 +1,6 @@
 "use client";
 import { FileSearch, Box, ShieldCheck, Truck, CheckCircle2 } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
 const steps = [
   { 
@@ -26,17 +26,16 @@ const steps = [
 ];
 
 export default function Process() {
-  // Container variants to stagger the children (the steps)
-  const containerVariants = {
+  const containerVariants: Variants = {
     initial: {},
     animate: {
       transition: {
-        staggerChildren: 0.8, // Delay between each step starting its animation
+        staggerChildren: 0.8,
       }
     }
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     initial: { opacity: 0, y: 20 },
     animate: { 
       opacity: 1, 
@@ -45,7 +44,7 @@ export default function Process() {
     }
   };
 
-  const lineVariants = {
+  const lineVariants: Variants = {
     initial: { width: "0%" },
     animate: { 
       width: "100%",
@@ -65,7 +64,6 @@ export default function Process() {
           </h2>
         </div>
 
-        {/* Auto-playing staggered animation on viewport enter */}
         <motion.div 
           variants={containerVariants}
           initial="initial"
@@ -82,16 +80,10 @@ export default function Process() {
                 variants={itemVariants}
                 className="relative flex flex-col items-center md:items-start"
               >
-                {/* ICON & CONNECTOR LAYER */}
                 <div className="mb-10 relative w-full flex justify-center md:justify-start items-center">
-                  
-                  {/* THE CONNECTOR LINE */}
                   {!isLast && (
                     <div className="hidden md:block absolute top-1/2 left-20 w-full h-[3px] -translate-y-1/2 z-0">
-                      {/* Gray Track */}
                       <div className="absolute inset-0 bg-slate-200 rounded-full" />
-                      
-                      {/* Auto-filling Orange Line */}
                       <motion.div 
                         variants={lineVariants}
                         className="absolute inset-0 bg-orange-600 rounded-full shadow-[0_0_12px_rgba(249,115,22,0.6)]"
@@ -99,7 +91,6 @@ export default function Process() {
                     </div>
                   )}
 
-                  {/* The Icon Box */}
                   <motion.div 
                     variants={{
                         initial: { borderColor: "#e2e8f0", color: "#94a3b8", backgroundColor: "#f1f5f9" },
@@ -107,27 +98,24 @@ export default function Process() {
                             borderColor: "#ea580c", 
                             color: "#ea580c", 
                             backgroundColor: "#ffffff",
-                            transition: { delay: 0.5 } // Light up after the line reaches it
+                            transition: { delay: 0.5 }
                         }
                     }}
                     className="w-20 h-20 border-2 rounded-2xl flex items-center justify-center relative shadow-sm z-10"
                   >
-                    {/* Final Success Animation (Radiates only on the last icon) */}
                     {isLast && (
                       <motion.div 
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ delay: 3.5 }} // Triggers after all staggers complete
+                        transition={{ delay: 3.5 }}
                         className="absolute inset-0 flex items-center justify-center"
                       >
-                         {/* Radiating Pulse */}
                         <motion.div 
                           initial={{ scale: 0.8, opacity: 0.5 }}
                           animate={{ scale: 1.8, opacity: 0 }}
                           transition={{ repeat: Infinity, duration: 2, ease: "easeOut" }}
                           className="absolute inset-0 bg-orange-400 rounded-2xl -z-10"
                         />
-                        {/* Checkmark Badge */}
                         <motion.div 
                           initial={{ scale: 0, y: 10 }}
                           animate={{ scale: 1, y: 0 }}
@@ -137,12 +125,10 @@ export default function Process() {
                         </motion.div>
                       </motion.div>
                     )}
-
                     <step.icon size={36} strokeWidth={1.5} />
                   </motion.div>
                 </div>
 
-                {/* TEXT LAYER */}
                 <div className="text-center md:text-left z-10">
                   <h3 className="text-lg font-bold mb-3 text-slate-900">
                     {step.title}
