@@ -1,11 +1,13 @@
-'use server';
-import { Resend } from 'resend';
+"use server";
+import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+
 
 type ContactFormData = {
   name: string;
   email: string;
+  phone: string;
   service: string;
   volume: string;
   message: string;
@@ -14,32 +16,39 @@ type ContactFormData = {
 export async function submitToGoogleSheets(data: ContactFormData) {
   try {
     const { data: emailData, error } = await resend.emails.send({
-      from: 'Karvyn3D <onboarding@resend.dev>',
-      to: 'info@karvyn3d.com',
+      from: "Karvyn3D <onboarding@resend.dev>",
+      to: "info@karvyn3d.com",
       subject: `New Project: ${data.service} from ${data.name}`,
       html: `
-        <h2>New Project Inquiry</h2>
-        <p><strong>Name:</strong> ${data.name}</p>
-        <p><strong>Email:</strong> ${data.email}</p>
-        <p><strong>Service Requested:</strong> ${data.service}</p>
-        <p><strong>Estimated Volume:</strong> ${data.volume}</p>
-        <p><strong>Details:</strong> ${data.message}</p>
+        <div style="font-family: sans-serif; line-height: 1.5; color: #333;">
+          <h2 style="color: #ea580c;">New Project Inquiry</h2>
+          <hr style="border: 0; border-top: 1px solid #eee;" />
+          <p><strong>Name:</strong> ${data.name}</p>
+          <p><strong>Email:</strong> ${data.email}</p>
+          <p><strong>Phone:</strong> ${data.phone}</p>
+          <p><strong>Service Requested:</strong> ${data.service}</p>
+          <p><strong>Estimated Volume:</strong> ${data.volume}</p>
+          <div style="margin-top: 20px; padding: 15px; background-color: #f8fafc; border-radius: 8px;">
+            <strong>Project Details:</strong><br/>
+            ${data.message.replace(/\n/g, "<br/>")}
+          </div>
+        </div>
       `,
       replyTo: data.email,
     });
 
     if (error) {
-      console.error('Resend Error:', error);
-      return { success: false, error: 'Email could not be sent.' };
+      console.error("Resend Error:", error);
+      return { success: false, error: "Email could not be sent." };
     }
 
     return { success: true };
   } catch (error: unknown) {
     if (error instanceof Error) {
-      console.error('Submission Error:', error.message);
+      console.error("Submission Error:", error.message);
     } else {
-      console.error('Submission Error:', error);
+      console.error("Submission Error:", error);
     }
-    return { success: false, error: 'An unexpected error occurred.' };
+    return { success: false, error: "An unexpected error occurred." };
   }
 }

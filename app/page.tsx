@@ -62,16 +62,24 @@ export default function Home() {
               </ul>
             </div>
 
-            {/* Column 4: PRIMARY FOCUS - Contact & Address */}
+            {/* Column 4: PRIMARY FOCUS - Contact, Email & Address */}
             <div className="space-y-6 md:pl-8 md:border-l border-slate-100">
               <div className="space-y-2">
                 <h4 className="text-orange-600 font-bold uppercase tracking-widest">Get in Touch</h4>
-                <a 
-                  href="tel:+917015317181" 
-                  className="block text-xl font-bold text-slate-900 hover:text-orange-600 transition-colors tracking-tight"
-                >
-                  +91 88148 84014
-                </a>
+                <div className="space-y-1">
+                  <a 
+                    href="tel:+918814884014" 
+                    className="block text-xl font-bold text-slate-900 hover:text-orange-600 transition-colors tracking-tight"
+                  >
+                    +91 88148 84014
+                  </a>
+                  <a 
+                    href="mailto:info@karvyn3d.com" 
+                    className="block text-sm font-medium text-slate-600 hover:text-orange-600 transition-colors"
+                  >
+                    info@karvyn3d.com
+                  </a>
+                </div>
               </div>
 
               <div className="space-y-2">
@@ -82,15 +90,6 @@ export default function Home() {
                   Haryana - 122001
                 </p>
               </div>
-
-              {/* <a 
-                href="https://maps.google.com" 
-                target="_blank" 
-                className="inline-flex items-center gap-2 text-xs font-bold text-slate-900 uppercase tracking-widest group"
-              >
-                View on Map 
-                <span className="text-orange-500 transition-transform group-hover:translate-x-1">→</span>
-              </a> */}
             </div>
 
           </div>
