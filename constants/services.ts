@@ -96,30 +96,30 @@ export const SERVICES = [
     title: "PCB & Electronics Enclosures",
     description: "ESD-safe housings designed for perfect component fitment. We handle snap-fit optimization, thermal management, and assembly tolerances.",
     icon: Cpu,
-    imageUrl: "/images/PCB Housing.jpg", // Existing asset
+    imageUrl: "/images/PCB.jpg", // Existing asset
   },
   {
     title: "Custom Labware Solutions",
     description: "Bespoke scientific apparatus for specific experimental protocols. From micro-fluidic jigs to custom centrifuge rotors, we fabricate what catalogues don't sell.",
     icon: FlaskConical,
-    imageUrl: "/images/Lab Equipment.png", // Existing asset
+    imageUrl: "/images/Lab_Equipments.jpg", // Existing asset
   },
   {
     title: "Corporate Brand Engineering",
     description: "Physicalize your brand values. Premium, functional onboarding kits and executive artifacts—not just trinkets. Vapor-smoothed finishes and Pantone matching available.",
     icon: Box,
-    imageUrl: "/images/Corporate Gifting.png", // Existing asset
+    imageUrl: "/images/Alex_Gifting.jpg", // Existing asset
   },
   {
     title: "Advanced Design Validation",
     description: "Move from 'looks-like' to 'works-like'. High-fidelity functional prototyping to validate ergonomics, assembly, and mechanical stress before mass production.",
     icon: Layers,
-    imageUrl: "/images/Drone.jpg", 
+    imageUrl: "/images/drone.jpg", 
   },
   {
     title: "Institutional Research Support",
     description: "Partnering with universities for grant-backed projects. We provide infrastructure for student innovation and complex geometry fabrication for PhD research.",
     icon: GraduationCap,
-    imageUrl: "/images/Lab Equipment.png", 
+    imageUrl: "/images/Labware.jpg", 
   }
 ];

@@ -6,7 +6,7 @@ import Image from "next/image";
 // Image array using the assets available in your public folder
 const carouselImages = [
   {
-    src: "/images/Drone.jpg",
+    src: "/images/drone.jpg",
     label: "Professional Drone Components • Carbon Fiber Nylon"
   },
   {
