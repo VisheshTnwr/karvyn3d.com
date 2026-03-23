@@ -11,7 +11,7 @@
 //     <main className="min-h-screen bg-white selection:bg-orange-100 selection:text-orange-900">
 //       <Navbar />
 //       <Hero />
-      
+
 //       {/* Capability Section */}
 //       <section id="solutions" className="py-24 px-6 bg-slate-50">
 //         <div className="max-w-7xl mx-auto">
@@ -20,16 +20,16 @@
 //       </section>
 
 //       {/* Trust/About Section */}
-//       <About /> 
+//       <About />
 
 //       <Process />
-      
+
 //       <Contact />
 
 //       <footer className="py-20 border-t border-slate-200 bg-white">
 //         <div className="max-w-7xl mx-auto px-6">
 //           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 text-sm text-slate-500">
-            
+
 //             {/* Column 1: Brand Info */}
 //             <div className="space-y-4">
 //               <h4 className="text-slate-900 font-bold uppercase tracking-widest">Karvyn3D</h4>
@@ -67,14 +67,14 @@
 //               <div className="space-y-2">
 //                 <h4 className="text-orange-600 font-bold uppercase tracking-widest">Get in Touch</h4>
 //                 <div className="space-y-1">
-//                   <a 
-//                     href="tel:+918814884014" 
+//                   <a
+//                     href="tel:+918814884014"
 //                     className="block text-xl font-bold text-slate-900 hover:text-orange-600 transition-colors tracking-tight"
 //                   >
 //                     +91 88148 84014
 //                   </a>
-//                   <a 
-//                     href="mailto:info@karvyn3d.com" 
+//                   <a
+//                     href="mailto:info@karvyn3d.com"
 //                     className="block text-sm font-medium text-slate-600 hover:text-orange-600 transition-colors"
 //                   >
 //                     info@karvyn3d.com
@@ -99,113 +99,6 @@
 //   );
 // }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -218,17 +111,17 @@ export default function StandbyPage() {
 
       <div className="relative z-10 text-center max-w-2xl">
         {/* Animated Logo Section */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="flex flex-col items-center gap-6 mb-12"
         >
           <div className="relative w-24 h-24 p-4 bg-white border border-slate-200 shadow-sm rounded-2xl">
-            <Image 
-              src="/logo.svg" 
-              alt="Karvyn3D" 
-              fill 
+            <Image
+              src="/logo.svg"
+              alt="Karvyn3D"
+              fill
               className="object-contain p-4"
               priority
             />
@@ -254,13 +147,13 @@ export default function StandbyPage() {
           </div>
 
           <h2 className="text-2xl md:text-3xl font-bold text-slate-800 leading-tight">
-            We are working on something <br className="hidden md:block" /> 
+            We are working on something <br className="hidden md:block" />
             proprietary and precise.
           </h2>
-          
+
           <p className="text-slate-500 text-lg max-w-lg mx-auto leading-relaxed">
-            Our next-gen manufacturing center is currently under maintenance 
-            as we refine our product lineup. We&apos;ll be back online shortly.
+            Our next-gen manufacturing center is currently under maintenance as
+            we refine our product lineup. We&apos;ll be back online shortly.
           </p>
         </motion.div>
 
@@ -272,17 +165,25 @@ export default function StandbyPage() {
           className="mt-12 pt-12 border-t border-slate-100"
         >
           <p className="text-sm text-slate-400 font-medium uppercase tracking-widest">
-            Specialized Manufacturer <br/>
-            <a href="mailto:contact@karvyn3d.com" className="text-orange-600 hover:text-orange-500 transition-colors font-bold">
-              contact@karvyn3d.com
+            Specialized Manufacturer <br />
+            <a
+              href="mailto:contact@karvyn3d.com"
+              className="text-orange-600 hover:text-orange-500 transition-colors font-bold"
+            >
+              info@karvyn3d.com
             </a>
           </p>
         </motion.div>
       </div>
 
       {/* Grid Pattern Overlay (Light Version) */}
-      <div className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none" 
-           style={{ backgroundImage: 'radial-gradient(#000000 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+      <div
+        className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none"
+        style={{
+          backgroundImage: "radial-gradient(#000000 1px, transparent 1px)",
+          backgroundSize: "40px 40px",
+        }}
+      />
     </main>
   );
 }
