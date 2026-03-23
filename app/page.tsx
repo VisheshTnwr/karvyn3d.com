@@ -274,7 +274,7 @@ export default function StandbyPage() {
           <p className="text-sm text-slate-500 font-medium">
             Need urgent assistance? <br/>
             <a href="mailto:contact@karvyn3d.com" className="text-orange-600 hover:text-orange-500 transition-colors">
-              contact@karvyn3d.com
+              info@karvyn3d.com
             </a>
           </p>
         </motion.div>
