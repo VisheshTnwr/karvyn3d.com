@@ -1,100 +1,288 @@
-"use client";
-import Navbar from "@/components/Navbar";
-import Hero from "@/sections/Hero";
-import ServiceContent from "@/components/ServiceContent";
-import Process from "@/sections/Process";
-import Contact from "@/sections/Contact";
-import About from "@/sections/About";
+// "use client";
+// import Navbar from "@/components/Navbar";
+// import Hero from "@/sections/Hero";
+// import ServiceContent from "@/components/ServiceContent";
+// import Process from "@/sections/Process";
+// import Contact from "@/sections/Contact";
+// import About from "@/sections/About";
 
-export default function Home() {
-  return (
-    <main className="min-h-screen bg-white selection:bg-orange-100 selection:text-orange-900">
-      <Navbar />
-      <Hero />
+// export default function Home() {
+//   return (
+//     <main className="min-h-screen bg-white selection:bg-orange-100 selection:text-orange-900">
+//       <Navbar />
+//       <Hero />
       
-      {/* Capability Section */}
-      <section id="solutions" className="py-24 px-6 bg-slate-50">
-        <div className="max-w-7xl mx-auto">
-          <ServiceContent />
-        </div>
-      </section>
+//       {/* Capability Section */}
+//       <section id="solutions" className="py-24 px-6 bg-slate-50">
+//         <div className="max-w-7xl mx-auto">
+//           <ServiceContent />
+//         </div>
+//       </section>
 
-      {/* Trust/About Section */}
-      <About /> 
+//       {/* Trust/About Section */}
+//       <About /> 
 
-      <Process />
+//       <Process />
       
-      <Contact />
+//       <Contact />
 
-      <footer className="py-20 border-t border-slate-200 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-12 text-sm text-slate-500">
+//       <footer className="py-20 border-t border-slate-200 bg-white">
+//         <div className="max-w-7xl mx-auto px-6">
+//           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 text-sm text-slate-500">
             
-            {/* Column 1: Brand Info */}
-            <div className="space-y-4">
-              <h4 className="text-slate-900 font-bold uppercase tracking-widest">Karvyn3D</h4>
-              <p className="leading-relaxed">
-                Industrial Additive Manufacturing Partner. <br/>
-                Precision FDM Solutions.
-              </p>
-              <p className="pt-4 opacity-50 text-xs">
-                © {new Date().getFullYear()} Karvyn3D.
-              </p>
-            </div>
+//             {/* Column 1: Brand Info */}
+//             <div className="space-y-4">
+//               <h4 className="text-slate-900 font-bold uppercase tracking-widest">Karvyn3D</h4>
+//               <p className="leading-relaxed">
+//                 Industrial Additive Manufacturing Partner. <br/>
+//                 Precision FDM Solutions.
+//               </p>
+//               <p className="pt-4 opacity-50 text-xs">
+//                 © {new Date().getFullYear()} Karvyn3D.
+//               </p>
+//             </div>
 
-            {/* Column 2: Solutions */}
-            <div className="space-y-4">
-              <h4 className="text-slate-900 font-bold uppercase tracking-widest">Solutions</h4>
-              <ul className="space-y-3">
-                <li className="hover:text-orange-600 transition-colors cursor-pointer">Bridge Production</li>
-                <li className="hover:text-orange-600 transition-colors cursor-pointer">Labware Engineering</li>
-                <li className="hover:text-orange-600 transition-colors cursor-pointer">Corporate Artifacts</li>
-              </ul>
-            </div>
+//             {/* Column 2: Solutions */}
+//             <div className="space-y-4">
+//               <h4 className="text-slate-900 font-bold uppercase tracking-widest">Solutions</h4>
+//               <ul className="space-y-3">
+//                 <li className="hover:text-orange-600 transition-colors cursor-pointer">Bridge Production</li>
+//                 <li className="hover:text-orange-600 transition-colors cursor-pointer">Labware Engineering</li>
+//                 <li className="hover:text-orange-600 transition-colors cursor-pointer">Corporate Artifacts</li>
+//               </ul>
+//             </div>
 
-            {/* Column 3: Legal */}
-            <div className="space-y-4">
-              <h4 className="text-slate-900 font-bold uppercase tracking-widest">Legal</h4>
-              <ul className="space-y-3">
-                <li className="hover:text-orange-600 transition-colors cursor-pointer">Privacy Policy</li>
-                <li className="hover:text-orange-600 transition-colors cursor-pointer">Terms of Service</li>
-                <li className="hover:text-orange-600 transition-colors cursor-pointer">NDA Request</li>
-              </ul>
-            </div>
+//             {/* Column 3: Legal */}
+//             <div className="space-y-4">
+//               <h4 className="text-slate-900 font-bold uppercase tracking-widest">Legal</h4>
+//               <ul className="space-y-3">
+//                 <li className="hover:text-orange-600 transition-colors cursor-pointer">Privacy Policy</li>
+//                 <li className="hover:text-orange-600 transition-colors cursor-pointer">Terms of Service</li>
+//                 <li className="hover:text-orange-600 transition-colors cursor-pointer">NDA Request</li>
+//               </ul>
+//             </div>
 
-            {/* Column 4: PRIMARY FOCUS - Contact, Email & Address */}
-            <div className="space-y-6 md:pl-8 md:border-l border-slate-100">
-              <div className="space-y-2">
-                <h4 className="text-orange-600 font-bold uppercase tracking-widest">Get in Touch</h4>
-                <div className="space-y-1">
-                  <a 
-                    href="tel:+918814884014" 
-                    className="block text-xl font-bold text-slate-900 hover:text-orange-600 transition-colors tracking-tight"
-                  >
-                    +91 88148 84014
-                  </a>
-                  <a 
-                    href="mailto:info@karvyn3d.com" 
-                    className="block text-sm font-medium text-slate-600 hover:text-orange-600 transition-colors"
-                  >
-                    info@karvyn3d.com
-                  </a>
-                </div>
-              </div>
+//             {/* Column 4: PRIMARY FOCUS - Contact, Email & Address */}
+//             <div className="space-y-6 md:pl-8 md:border-l border-slate-100">
+//               <div className="space-y-2">
+//                 <h4 className="text-orange-600 font-bold uppercase tracking-widest">Get in Touch</h4>
+//                 <div className="space-y-1">
+//                   <a 
+//                     href="tel:+918814884014" 
+//                     className="block text-xl font-bold text-slate-900 hover:text-orange-600 transition-colors tracking-tight"
+//                   >
+//                     +91 88148 84014
+//                   </a>
+//                   <a 
+//                     href="mailto:info@karvyn3d.com" 
+//                     className="block text-sm font-medium text-slate-600 hover:text-orange-600 transition-colors"
+//                   >
+//                     info@karvyn3d.com
+//                   </a>
+//                 </div>
+//               </div>
 
-              <div className="space-y-2">
-                <h4 className="text-slate-900 font-bold uppercase tracking-widest text-[10px]">Location</h4>
-                <p className="text-slate-600 leading-relaxed font-medium">
-                  1st floor, shop no. 102/3, <br />
-                  Jacub Pura, Gurugram, <br />
-                  Haryana - 122001
-                </p>
-              </div>
-            </div>
+//               <div className="space-y-2">
+//                 <h4 className="text-slate-900 font-bold uppercase tracking-widest text-[10px]">Location</h4>
+//                 <p className="text-slate-600 leading-relaxed font-medium">
+//                   1st floor, shop no. 102/3, <br />
+//                   Jacub Pura, Gurugram, <br />
+//                   Haryana - 122001
+//                 </p>
+//               </div>
+//             </div>
 
+//           </div>
+//         </div>
+//       </footer>
+//     </main>
+//   );
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"use client";
+import { motion } from "framer-motion";
+import Image from "next/image";
+
+export default function StandbyPage() {
+  return (
+    <main className="relative min-h-screen w-full flex flex-col items-center justify-center bg-slate-950 overflow-hidden px-6">
+      {/* Subtle Background Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-orange-600/10 blur-[120px] rounded-full" />
+
+      <div className="relative z-10 text-center max-w-2xl">
+        {/* Animated Logo Section */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="flex flex-col items-center gap-6 mb-12"
+        >
+          <div className="relative w-24 h-24 p-4 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-sm">
+            <Image 
+              src="/logo.svg" 
+              alt="Karvyn3D" 
+              fill 
+              className="object-contain p-4"
+              priority
+            />
           </div>
-        </div>
-      </footer>
+          <h1 className="text-4xl md:text-6xl font-black tracking-tighter text-white font-poppins">
+            KARVYN<span className="text-orange-600">3D</span>
+          </h1>
+        </motion.div>
+
+        {/* Message Section */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4, duration: 0.8 }}
+          className="space-y-6"
+        >
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-600/10 border border-orange-600/20 text-orange-500 text-xs font-bold uppercase tracking-[0.2em]">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
+            </span>
+            Standby Mode
+          </div>
+
+          <h2 className="text-2xl md:text-3xl font-bold text-slate-200 leading-tight">
+            We are working on something <br className="hidden md:block" /> 
+            proprietary and precise.
+          </h2>
+          
+          <p className="text-slate-400 text-lg max-w-lg mx-auto leading-relaxed">
+            Our next-gen manufacturing studio is currently under maintenance 
+            as we refine our product lineup. We&apos;ll be back online shortly.
+          </p>
+        </motion.div>
+
+        {/* Contact/Social Trigger */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+          className="mt-12 pt-12 border-t border-white/5"
+        >
+          <p className="text-sm text-slate-500 font-medium">
+            Need urgent assistance? <br/>
+            <a href="mailto:contact@karvyn3d.com" className="text-orange-600 hover:text-orange-500 transition-colors">
+              contact@karvyn3d.com
+            </a>
+          </p>
+        </motion.div>
+      </div>
+
+      {/* Grid Pattern Overlay */}
+      <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none" 
+           style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
     </main>
   );
 }
