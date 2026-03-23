@@ -212,9 +212,9 @@ import Image from "next/image";
 
 export default function StandbyPage() {
   return (
-    <main className="relative min-h-screen w-full flex flex-col items-center justify-center bg-slate-950 overflow-hidden px-6">
-      {/* Subtle Background Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-orange-600/10 blur-[120px] rounded-full" />
+    <main className="relative min-h-screen w-full flex flex-col items-center justify-center bg-white overflow-hidden px-6">
+      {/* Subtle Light Orange Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-orange-500/5 blur-[120px] rounded-full" />
 
       <div className="relative z-10 text-center max-w-2xl">
         {/* Animated Logo Section */}
@@ -224,7 +224,7 @@ export default function StandbyPage() {
           transition={{ duration: 0.8 }}
           className="flex flex-col items-center gap-6 mb-12"
         >
-          <div className="relative w-24 h-24 p-4 bg-white/5 border border-white/10 rounded-2xl backdrop-blur-sm">
+          <div className="relative w-24 h-24 p-4 bg-white border border-slate-200 shadow-sm rounded-2xl">
             <Image 
               src="/logo.svg" 
               alt="Karvyn3D" 
@@ -233,7 +233,7 @@ export default function StandbyPage() {
               priority
             />
           </div>
-          <h1 className="text-4xl md:text-6xl font-black tracking-tighter text-white font-poppins">
+          <h1 className="text-4xl md:text-6xl font-black tracking-tighter text-slate-900 font-poppins">
             KARVYN<span className="text-orange-600">3D</span>
           </h1>
         </motion.div>
@@ -245,21 +245,21 @@ export default function StandbyPage() {
           transition={{ delay: 0.4, duration: 0.8 }}
           className="space-y-6"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-600/10 border border-orange-600/20 text-orange-500 text-xs font-bold uppercase tracking-[0.2em]">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50/50 border border-orange-200 text-orange-600 text-xs font-bold uppercase tracking-[0.2em]">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-orange-600"></span>
             </span>
             Standby Mode
           </div>
 
-          <h2 className="text-2xl md:text-3xl font-bold text-slate-200 leading-tight">
+          <h2 className="text-2xl md:text-3xl font-bold text-slate-800 leading-tight">
             We are working on something <br className="hidden md:block" /> 
             proprietary and precise.
           </h2>
           
-          <p className="text-slate-400 text-lg max-w-lg mx-auto leading-relaxed">
-            Our next-gen manufacturing studio is currently under maintenance 
+          <p className="text-slate-500 text-lg max-w-lg mx-auto leading-relaxed">
+            Our next-gen manufacturing center is currently under maintenance 
             as we refine our product lineup. We&apos;ll be back online shortly.
           </p>
         </motion.div>
@@ -269,20 +269,20 @@ export default function StandbyPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8 }}
-          className="mt-12 pt-12 border-t border-white/5"
+          className="mt-12 pt-12 border-t border-slate-100"
         >
-          <p className="text-sm text-slate-500 font-medium">
-            Need urgent assistance? <br/>
-            <a href="mailto:contact@karvyn3d.com" className="text-orange-600 hover:text-orange-500 transition-colors">
-              info@karvyn3d.com
+          <p className="text-sm text-slate-400 font-medium uppercase tracking-widest">
+            Specialized Manufacturer <br/>
+            <a href="mailto:contact@karvyn3d.com" className="text-orange-600 hover:text-orange-500 transition-colors font-bold">
+              contact@karvyn3d.com
             </a>
           </p>
         </motion.div>
       </div>
 
-      {/* Grid Pattern Overlay */}
-      <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none" 
-           style={{ backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+      {/* Grid Pattern Overlay (Light Version) */}
+      <div className="absolute inset-0 z-0 opacity-[0.05] pointer-events-none" 
+           style={{ backgroundImage: 'radial-gradient(#000000 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
     </main>
   );
 }
