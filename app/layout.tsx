@@ -17,7 +17,7 @@ const poppins = Poppins({
 
 // UPDATED METADATA FOR GOOGLE CRAWLING
 export const metadata: Metadata = {
-  title: "Karvyn3D | Next-Gen Small-Batch Manufacturing Studio",
+  title: "Karvyn3D | Proprietary Lab Instruments & Research Tools",
   description:
     "A specialized manufacturer of MRI-compatible restraints, custom labware, and institutional research tools engineered for precision.",
   metadataBase: new URL("https://karvyn3d.com"), // Replace with your actual domain
