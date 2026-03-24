@@ -19,7 +19,7 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "Karvyn3D | Next-Gen Small-Batch Manufacturing Studio",
   description:
-    "A specialized 3D production studio for R&D labs, tech startups, and corporate teams. Aesthetic utility meets production precision.",
+    "A specialized manufacturer of MRI-compatible restraints, custom labware, and institutional research tools engineered for precision.",
   metadataBase: new URL("https://karvyn3d.com"), // Replace with your actual domain
   icons: {
     icon: [
