@@ -102,6 +102,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
+export const dynamic = 'force-dynamic';
 
 export default function StandbyPage() {
   return (
@@ -148,7 +149,7 @@ export default function StandbyPage() {
 
           <h2 className="text-2xl md:text-3xl font-bold text-slate-800 leading-tight">
             We are working on something <br className="hidden md:block" />
-            proprietary and precise.
+            
           </h2>
 
           <p className="text-slate-500 text-lg max-w-lg mx-auto leading-relaxed">
