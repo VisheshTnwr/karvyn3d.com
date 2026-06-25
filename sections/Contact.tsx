@@ -23,7 +23,7 @@ export default function Contact() {
 
           <div className="lg:col-span-1 flex flex-col gap-4">
             <a
-              href="mailto:hello@karvyn3d.com"
+              href="mailto:info@karvyn3d.com"
               className="w-full text-center bg-slate-900 text-white px-8 py-4 rounded-xl font-bold uppercase tracking-widest text-xs hover:bg-orange-600 transition-all flex items-center justify-center gap-3 shadow-lg"
             >
               Email Us <Mail size={16} />
