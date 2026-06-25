@@ -1,26 +1,32 @@
 "use client";
-import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { motion, AnimatePresence, useSpring, useTransform } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import MagneticButton from "@/components/MagneticButton";
 
-// Image array using the assets available in your public folder
+// Updated to reflect actual research instrument assets
 const carouselImages = [
   {
-    src: "/images/drone.jpg",
-    label: "Professional Drone Components • Carbon Fiber Nylon"
+    src: "/images/BAS/bas4.jpg",
+    label: "B.A.S: Behavioural Assessment System"
   },
   {
-    src: "/images/PCB Housing.jpg",
-    label: "PCB Housing Prototype • Internal Fitment Check"
+    src: "/images/rat-restraint/rat-restraint6.png", 
+    label: "MRI Rat Restrainer • Unsedated Neuroimaging"
   },
   {
-    src: "/images/Lab Equipment.png",
-    label: "Laboratory Instrumentation • Chemical Resistant"
+    src: "/images/Falcon-Tube/falcon-tube5.jpg",
+    label: "Falcon Tube Holder"
   },
   {
-    src: "/images/Corporate Gifting.png",
-    label: "Custom Corporate Solutions • Short-Run Batch"
+    src: "/images/joystick/joystick5.jpg",
+    label: "MRI Task Joystick Holder"
   },
+  {
+    src: "/images/Beam-Walk/beam-walk4.png",
+    label: "Beam Walk: Behavioural Assessment Test"
+  },
+  
 ];
 
 const containerVariants = {
@@ -45,8 +51,38 @@ const itemVariants = {
 
 export default function Hero() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  
+  // Mouse position state
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
-  // Auto-advance the carousel every 5 seconds
+  // Handle mouse movement for parallax
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const { clientX, clientY } = e;
+      const { innerWidth, innerHeight } = window;
+      const x = (clientX / innerWidth - 0.5) * 2;
+      const y = (clientY / innerHeight - 0.5) * 2;
+      setMousePos({ x, y });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  // Smooth springs for the movement
+  const springX = useSpring(0, { stiffness: 70, damping: 30 });
+  const springY = useSpring(0, { stiffness: 70, damping: 30 });
+
+  useEffect(() => {
+    springX.set(mousePos.x);
+    springY.set(mousePos.y);
+  }, [mousePos, springX, springY]);
+
+  // Transform springs into pixel movement - Increased range for more visibility
+  const gridX = useTransform(springX, [-1, 1], [-60, 60]);
+  const gridY = useTransform(springY, [-1, 1], [-60, 60]);
+
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % carouselImages.length);
@@ -55,75 +91,113 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-[90vh] flex items-center pt-32 pb-20 px-6 bg-white overflow-hidden">
-      {/* Subtle Technical Grid Background - Blueprint Style */}
-      <div className="absolute inset-0 opacity-[0.4]" 
-           style={{ backgroundImage: 'linear-gradient(#e2e8f0 1px, transparent 1px), linear-gradient(90deg, #e2e8f0 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
-      </div>
+    <section 
+      ref={sectionRef}
+      className="relative min-h-[90vh] flex items-center pt-24 pb-16 px-6 overflow-hidden"
+    >
+      {/* Animated Technical Grid Background */}
+      <motion.div 
+        className="absolute inset-[-100px] opacity-[0.25] pointer-events-none" 
+        style={{ 
+          backgroundImage: 'linear-gradient(#cbd5e1 1px, transparent 1px), linear-gradient(90deg, #cbd5e1 1px, transparent 1px)', 
+          backgroundSize: '40px 40px',
+          x: gridX,
+          y: gridY
+        }}
+      />
 
-      <div className="max-w-7xl mx-auto w-full relative z-10 grid lg:grid-cols-2 gap-16 items-center">
-        {/* Left Column: Text Content */}
+      <div className="max-w-7xl mx-auto w-full relative z-10 grid lg:grid-cols-2 gap-12 items-center">
+        {/* Left Column: New Product-Focused Content */}
         <motion.div
           initial="hidden"
           animate="visible"
           variants={containerVariants}
+          className="max-w-2xl"
         >
           <motion.span
             variants={itemVariants}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded border border-slate-200 bg-slate-50 text-slate-600 text-xs font-bold tracking-widest uppercase mb-8 shadow-sm"
+            className="inline-flex items-center gap-2 px-3 py-1 rounded border border-slate-200 bg-slate-50 text-slate-900 tech-label mb-6 shadow-sm"
           >
-            <span className="w-2 h-2 rounded-full bg-accent animate-pulse"/>
-            Agile Manufacturing Partner
+            <span className="w-2 h-2 rounded-full bg-orange-600 animate-pulse"/>
+            Product Design & Development · Gurugram, India
           </motion.span>
 
           <motion.h1
             variants={itemVariants}
-            className="text-5xl lg:text-7xl font-heading text-slate-900 mb-6 leading-[1.1] tracking-tight"
+            className="text-5xl lg:text-7xl font-bold text-slate-900 mb-6 leading-[1.05] tracking-tight"
           >
-            Production Quality. <br />
-            <span className="text-accent">Zero Tooling.</span>
+            <span className="block overflow-hidden">
+              <motion.span 
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1], delay: 0.2 }}
+                className="block"
+              >
+                From first sketch to
+              </motion.span>
+            </span>
+            <span className="block overflow-hidden">
+              <motion.span 
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1], delay: 0.3 }}
+                className="block text-orange-600"
+              >
+                finished product
+              </motion.span>
+            </span>
+            <span className="block overflow-hidden">
+              <motion.span 
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1], delay: 0.4 }}
+                className="block text-orange-600"
+              >
+                end to end.
+              </motion.span>
+            </span>
           </motion.h1>
 
           <motion.p
             variants={itemVariants}
-            className="text-xl text-slate-600 mb-10 max-w-xl leading-relaxed font-medium"
+            className="text-lg md:text-xl text-slate-700 mb-10 max-w-xl leading-relaxed font-medium"
           >
-            We bridge the gap between prototyping and mass production. 
-            Deploy your product <strong>weeks ahead of schedule</strong> with our industrial bridge manufacturing and design validation services.
+            Karvyn 3D is a product design and development firm. We take complex hardware problems — across industrial, research, and emerging technology sectors — and engineer them into physical products through precision CAD, electronics, and advanced manufacturing.
           </motion.p>
 
           <motion.div
             variants={itemVariants}
             className="flex flex-col sm:flex-row gap-4"
           >
-            <a href="#contact" className="px-8 py-4 bg-accent text-white font-bold text-sm uppercase tracking-wider rounded-lg hover:bg-orange-700 transition-colors text-center shadow-lg shadow-orange-200">
-              Start Your Batch
-            </a>
-            <a href="#solutions" className="px-8 py-4 border-2 border-slate-200 text-slate-700 font-bold text-sm uppercase tracking-wider rounded-lg hover:border-slate-900 hover:text-slate-900 transition-colors text-center">
-              Explore Capabilities
-            </a>
+            <MagneticButton>
+              <a href="#problem" className="px-8 py-4 bg-slate-900 text-white font-bold text-sm uppercase tracking-wider rounded-lg hover:bg-orange-600 transition-colors text-center shadow-lg block">
+                The Problem We Solve
+              </a>
+            </MagneticButton>
+            <MagneticButton>
+              <a href="#instruments" className="px-8 py-4 border-2 border-slate-200 text-slate-700 font-bold text-sm uppercase tracking-wider rounded-lg hover:border-slate-900 hover:text-slate-900 transition-colors text-center block">
+                See Our Instruments
+              </a>
+            </MagneticButton>
           </motion.div>
 
           <motion.div
              initial={{ opacity: 0, y: 30 }}
              animate={{ opacity: 1, y: 0 }}
              transition={{ duration: 0.6, delay: 0.8 }}
-             className="mt-16 border-t border-slate-100 pt-8"
+             className="mt-12 border-t border-slate-100 pt-8"
           >
-            <p className="text-slate-400 text-xs font-bold uppercase tracking-widest mb-4">Trusted By Innovators In</p>
-            <div className="flex flex-wrap gap-8 text-slate-500 font-semibold text-sm">
-               <span>Tech Startups</span>
-               <span className="text-slate-300">•</span>
-               <span>Research Labs</span>
-               <span className="text-slate-300">•</span>
-               <span>Universities</span>
-               <span className="text-slate-300">•</span>
-               <span>Consumer Electronics</span>
+            <p className="text-slate-500 tech-label mb-4">Supporting Research In</p>
+            <div className="flex flex-wrap gap-x-6 gap-y-2 text-slate-700 font-bold text-sm">
+               <span>Neuroimaging Labs</span>
+               <span>Behavioural Neuroscience</span>
+               <span>Avian Research</span>
+               <span>University Facilities</span>
             </div>
           </motion.div>
         </motion.div>
 
-        {/* Right Column: Image Carousel Frame */}
+        {/* Right Column: Carousel Frame */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -141,32 +215,29 @@ export default function Hero() {
             >
               <Image
                 src={carouselImages[currentIndex].src}
-                alt="Manufacturing Gallery"
+                alt="Karvyn 3D Instruments"
                 fill
-                className="object-cover"
+                className={carouselImages[currentIndex].src.includes('beam-walk') ? "object-contain p-1" : "object-cover"}
                 priority
               />
-              {/* Subtle gradient overlay to ensure text readability */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
             </motion.div>
           </AnimatePresence>
            
-          {/* Dynamic Overlay Label */}
           <div className="absolute bottom-6 left-8 z-20">
              <div className="flex items-center gap-2 bg-white/90 backdrop-blur-sm py-2 px-4 rounded-full border border-slate-200 shadow-sm">
-               <div className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse"></div>
+               <div className="w-1.5 h-1.5 bg-orange-600 rounded-full animate-pulse"></div>
                <span className="text-[10px] font-bold tracking-widest uppercase text-slate-600">
                  {carouselImages[currentIndex].label}
                </span>
              </div>
           </div>
 
-          {/* Carousel Progress Indicators */}
           <div className="absolute bottom-8 right-8 flex gap-2 z-20">
             {carouselImages.map((_, i) => (
               <div 
                 key={i}
-                className={`h-1 rounded-full transition-all duration-300 ${i === currentIndex ? 'w-8 bg-accent' : 'w-2 bg-white/50'}`}
+                className={`h-1 rounded-full transition-all duration-300 ${i === currentIndex ? 'w-8 bg-orange-600' : 'w-2 bg-white/50'}`}
               />
             ))}
           </div>

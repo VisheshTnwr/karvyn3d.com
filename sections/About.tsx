@@ -1,29 +1,29 @@
 "use client";
-import { Zap, Component, Users, Rocket } from "lucide-react";
+import { Zap, ShieldCheck, Microscope, FlaskConical } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
 const aboutPoints = [
   { 
-    id: "quality",
-    icon: Component, 
-    title: "Small-Batch, Zero Compromise", 
-    desc: "We prioritize quality over volume. Every part, whether it's a single prototype or a batch of 100, passes meticulous QA standards. Our commitment to precision means your components aren't just parts; they are industrial-grade solutions.",
-    stat: "100% QA Inspection"
-  },
-  { 
-    id: "workflow",
-    icon: Users, 
-    title: "Engineer-to-Engineer Workflow", 
-    desc: "You talk directly to the team fabricating your parts. This streamlined loop cuts lead times and eliminates communication friction. By removing middlemen, we ensure that technical requirements are translated perfectly from file to final build.",
-    stat: "Zero Friction Comms"
+    id: "design",
+    icon: ShieldCheck, 
+    title: "In-House Engineering", 
+    desc: "We don't just print files; we engineer solutions. Every product in our lineup is conceived and validated in-house using parametric design. This ensures that every clip, housing, and restraint meets exact mechanical tolerances.",
+    stat: "100% Design Ownership"
   },
   { 
     id: "materials",
-    icon: Rocket, 
-    title: "Industrial-Grade Materials", 
-    desc: "We utilize specialized PLA+, PETG, and Carbon Fiber composites, sourcing only materials optimized for structural function. Every filament in our inventory is chosen for specific mechanical properties like thermal resistance and high tensile strength.",
-    stat: "CF-Reinforced Options"
+    icon: FlaskConical, 
+    title: "Application-Specific Materials", 
+    desc: "Our material selection is driven by protocol, not cost. We utilize research-grade PETG, TPU, and Polycarbonate chosen for non-ferromagnetic properties, autoclave compatibility, and chemical resistance in lab environments.",
+    stat: "Bio-Compatible & MRI-Safe"
+  },
+  { 
+    id: "validation",
+    icon: Microscope, 
+    title: "Lab-Ready Validation", 
+    desc: "Moving beyond 'looks-like' prototypes to 'works-like' instruments. We stress-test our designs against real-world experimental protocols, ensuring reliability where off-the-shelf laboratory equipment falls short.",
+    stat: "Research-Grade Integrity"
   },
 ];
 
@@ -31,10 +31,9 @@ export default function About() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section id="about" className="py-32 px-6 bg-white border-y border-slate-100 overflow-hidden">
+    <section id="about" className="section-padding px-6 border-y border-slate-100 overflow-hidden">
       <div className="max-w-7xl mx-auto">
         
-        {/* CENTERED TOP HEADING */}
         <div className="text-center mb-24">
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -42,18 +41,17 @@ export default function About() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-6xl md:text-8xl font-black text-orange-600 mb-6 tracking-tighter">
-              Why Karvyn3D?
+            <h2 className="text-5xl md:text-7xl font-black text-slate-900 mb-6 tracking-tighter">
+              The Karvyn<span className="text-orange-600">3D</span> Standard
             </h2>
-            <h3 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
-              The difference is <span className="text-orange-600">intentional.</span>
+            <h3 className="text-2xl md:text-3xl font-bold text-slate-500 tracking-tight">
+              Where aesthetic utility meets <span className="text-orange-600">production precision.</span>
             </h3>
           </motion.div>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-32 items-center">
           
-          {/* LEFT SIDE: THE DYNAMIC DESCRIPTION */}
           <div className="relative order-2 lg:order-1 min-h-[400px] flex flex-col justify-center">
             <AnimatePresence mode="wait">
               <motion.div
@@ -66,7 +64,7 @@ export default function About() {
               >
                 <div className="w-16 h-1 bg-orange-600 rounded-full" />
                 
-                <h4 className="text-4xl font-bold text-slate-900 leading-tight">
+                <h4 className="text-4xl font-bold text-slate-900 leading-tight tracking-tight">
                   {aboutPoints[activeIndex].title}
                 </h4>
                 
@@ -82,7 +80,6 @@ export default function About() {
             </AnimatePresence>
           </div>
 
-          {/* RIGHT SIDE: THE INTERACTIVE TILES */}
           <div className="space-y-6 order-1 lg:order-2">
             {aboutPoints.map((point, index) => {
               const isActive = activeIndex === index;
@@ -97,7 +94,6 @@ export default function About() {
                       : "border-slate-50 bg-slate-50 hover:border-orange-200"
                   }`}
                 >
-                  {/* Icon Frame */}
                   <div className={`w-16 h-16 shrink-0 flex items-center justify-center rounded-2xl border-2 transition-all duration-500 ${
                     isActive 
                       ? "bg-orange-600 text-white border-orange-600" 

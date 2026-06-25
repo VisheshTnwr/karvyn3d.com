@@ -1,6 +1,7 @@
 import "./globals.css";
-import { Inter, Poppins } from "next/font/google";
-import { Metadata } from "next"; // Added for type safety
+import { Inter, Poppins, JetBrains_Mono } from "next/font/google";
+import { Metadata } from "next"; 
+import AmbientBackground from "@/components/AmbientBackground";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -13,6 +14,12 @@ const poppins = Poppins({
   weight: ["700", "900"],
   display: "swap",
   variable: "--font-poppins",
+});
+
+const jetbrains = JetBrains_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-mono",
 });
 
 // UPDATED METADATA FOR GOOGLE CRAWLING
@@ -40,10 +47,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${poppins.variable} scroll-smooth`}
+      className={`${inter.variable} ${poppins.variable} ${jetbrains.variable} scroll-smooth`}
     >
-      <body className="antialiased bg-gray-50 text-gray-950 font-sans">
-        {children}
+      <body className="antialiased text-slate-900 font-sans relative">
+        <AmbientBackground />
+        <div className="relative z-10">
+          {children}
+        </div>
       </body>
     </html>
   );

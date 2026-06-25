@@ -1,0 +1,78 @@
+# Behavioural Assessment System (B.A.S) - Project Documentation
+**Developed by: Karvyn3D**
+
+## 1. Executive Summary
+The Behavioural Assessment System (B.A.S) is a state-of-the-art laboratory apparatus designed for avian cognitive research, specifically for studying the decision-making and inhibitory control of crows. Using a Go/No-Go behavioral paradigm, the system automates the delivery of auditory stimuli and records high-precision interaction data. The entire housing and mechanical components are custom-engineered and 3D printed by Karvyn3D to ensure scientific durability and species-specific ergonomics.
+
+---
+
+## 2. Hardware Specifications
+
+### 2.1 Microcontroller Unit (MCU)
+- **Core:** ESP32 (Dual-core, integrated Wi-Fi and Bluetooth)
+- **Role:** The "brain" of the hardware unit, responsible for sub-millisecond sensor sampling, servo PWM control, and LED signaling.
+
+### 2.2 Actuators & Mechanicals
+- **Motorized Gate:** A high-torque servo motor controls a sliding or rotating gate that reveals food rewards.
+- **Physical Housing:** Custom 3D printed enclosure (Karvyn3D) designed to withstand the pecking force of large corvids while keeping sensitive electronics protected.
+
+### 2.3 Sensor Suite
+- **Peck Interface (Force Sensor):** A Force Sensitive Resistor (FSR) is utilized behind a target button. This allows the system to detect not just the presence of a peck, but the relative force applied, helping to filter out accidental brushes from intentional actions.
+
+### 2.4 Visual Feedback
+- **RGB Signaling:** High-intensity LEDs provide visual cues for the bird (indicating the device is "ready" or an "incorrect" action was taken) and status updates for the researcher.
+
+---
+
+## 3. Wiring & Pinout Configuration (ESP32)
+
+The following wiring map defines the electrical connections for the B.A.S hardware unit.
+
+| Component | Pin (ESP32) | Mode | Description |
+| :--- | :--- | :--- | :--- |
+| **Servo Motor** | GPIO 4 | PWM Output | Controls the reward gate (Open/Close). |
+| **FSR (Force Sensor)**| GPIO 34 | Analog Input | Measures peck intensity on the button. |
+| **LED - Red** | GPIO 25 | Digital Output| Signals stimulus/error states. |
+| **LED - Green** | GPIO 26 | Digital Output| Signals ready/success states. |
+| **Status Indicator** | GPIO 16 | Digital Output| On-board system health/warning LED. |
+
+---
+
+## 4. Software Infrastructure
+
+### 4.1 Lab Console (Desktop Application)
+- **Tech Stack:** Electron, Node.js, HTML5/CSS3.
+- **Features:** 
+  - Real-time "Force Meter" to visualize peck sensitivity.
+  - Trial configuration (Audio file selection, gate duration, punishment delays).
+  - Subject database management.
+  - Automated CSV data logging (Timestamps, Latency, Outcome).
+
+### 4.2 Trial Logic & State Machine
+The B.A.S operates on a rigorous experimental workflow:
+1. **Idle State:** The system glows Green, indicating it is ready for a trial.
+2. **Stimulus Delivery:** A randomly selected "Reward" or "No-Reward" sound is played through the connected PC/Audio system.
+3. **Response Window:** The system listens for an analog signal from the FSR (GPIO 34).
+4. **Logic Branching:**
+   - **GO (Reward Sound) + Peck:** SUCCESS. Gate opens (Servo -120°), reward is delivered, latency is recorded.
+   - **NO-GO (No-Reward Sound) + Peck:** INCORRECT. Punishment sound plays, LEDs flash Red, and the trial enters a "Time-out" phase.
+   - **NO-GO (No-Reward Sound) + No Peck:** CORRECT REJECTION. Recorded as a success; trial ends after audio finishes.
+   - **GO (Reward Sound) + No Peck:** OMISSION. Recorded as a missed trial.
+
+---
+
+## 5. Operational Workflow for Researchers
+
+1. **Initialization:** Connect the B.A.S unit via USB. Launch the Karvyn3D Lab Console.
+2. **Configuration:** Enter the Subject ID (e.g., Crow_04) and load the specific auditory stimuli (.wav files).
+3. **Execution:** 
+   - **Manual Mode:** Researcher triggers each trial individually.
+   - **Automation Mode:** System runs a preset number of trials with randomized stimulus delivery and automated cleanup.
+4. **Data Analysis:** Upon session completion, the system generates a detailed CSV report including every interaction, allowing researchers to calculate learning curves and response consistency.
+
+---
+
+## 6. Manufacturing Note
+All structural components of the Behavioural Assessment System (B.A.S) are designed and manufactured using Karvyn3D's proprietary 3D printing workflows, ensuring a modular and repairable system tailored for the unique demands of avian behavioral science.
+
+**Karvyn3D | Advancing Behavioural Science through Engineering.**

@@ -1,146 +1,98 @@
 "use client";
-import { FileSearch, Box, ShieldCheck, Truck, CheckCircle2 } from "lucide-react";
-import { motion, Variants } from "framer-motion";
+import { Ruler, Cpu, FlaskConical, Factory } from "lucide-react";
+import { motion } from "framer-motion";
 
-const steps = [
-  { 
-    icon: FileSearch,
-    title: "Design Review", 
-    desc: "Our engineers review your CAD for wall thickness, tolerances, and printability. We propose optimizations to reduce cost and failure risk." 
+const capabilities = [
+  {
+    category: "Mechanical",
+    title: "CAD & Parametric Engineering",
+    desc: "Full 3D mechanical design in Autodesk Fusion 360 and FreeCAD. Parametric models built for variant families, toleranced for manufacturing, and structured for iteration.",
+    tags: ["Fusion 360", "FreeCAD", "Parametric Design", "GD&T"],
+    icon: Ruler
   },
-  { 
-    icon: Box,
-    title: "Agile Fabrication", 
-    desc: "Production begins on our calibrated FDM farms using industrial-grade polymers (PLA+, PETG, PC) tailored to your specs." 
+  {
+    category: "Electronics",
+    title: "Embedded Systems & Firmware",
+    desc: "Sensor integration, microcontroller-based control logic, actuator systems, and serial communication — designed, coded, and integrated into the physical product.",
+    tags: ["ESP32", "Sensors", "Servos", "Firmware", "Serial Comms"],
+    icon: Cpu
   },
-  { 
-    icon: ShieldCheck,
-    title: "Quality Assurance", 
-    desc: "Every batch undergoes dimensional accuracy checks and visual inspection. We ensure consistent layer adhesion and surface finish." 
+  {
+    category: "Materials",
+    title: "Material Engineering & Selection",
+    desc: "Material choice is an engineering decision, not a default. We characterise and select polymers for the specific demands of each application — mechanical load, chemical exposure, temperature, or regulatory environment.",
+    tags: ["PETG", "TPU 95A", "PETG-CF", "ASA", "PLA"],
+    icon: FlaskConical
   },
-  { 
-    icon: Truck,
-    title: "Secure Logistics", 
-    desc: "Parts are securely packed with batch tracking. Digital files are archived in our secure vault for instant re-ordering." 
+  {
+    category: "Manufacturing",
+    title: "Advanced FDM Production",
+    desc: "Multi-machine FDM manufacturing capability for prototypes and low-volume runs. Process-controlled printing, validated profiles per material, and production-quality outputs — not desktop hobbyist results.",
+    tags: ["FDM", "Multi-Material", "Low-Volume Runs", "Process Control"],
+    icon: Factory
   }
 ];
 
-export default function Process() {
-  const containerVariants: Variants = {
-    initial: {},
-    animate: {
-      transition: {
-        staggerChildren: 0.8,
-      }
-    }
-  };
-
-  const itemVariants: Variants = {
-    initial: { opacity: 0, y: 20 },
-    animate: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.5 }
-    }
-  };
-
-  const lineVariants: Variants = {
-    initial: { width: "0%" },
-    animate: { 
-      width: "100%",
-      transition: { duration: 0.8, ease: "easeInOut" } 
-    }
-  };
-
+export default function Capabilities() {
   return (
-    <section id="process" className="py-32 px-6 bg-slate-50 border-t border-slate-200 overflow-hidden">
+    <section id="capabilities" className="section-padding px-6 border-t border-slate-200 overflow-hidden bg-white">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-24 text-center">
-          <span className="text-orange-600 text-xs font-bold tracking-[0.3em] uppercase block mb-3">
-            Sequential Workflow
+        {/* Header Section */}
+        <div className="mb-16">
+          <span className="text-orange-600 tech-label block mb-4">
+            Capabilities
           </span>
-          <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tighter">
-            Engineered for Reliability
+          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 tracking-tighter mb-6 leading-[1.1]">
+            The technical stack <br className="hidden md:inline" /> behind every build.
           </h2>
+          <p className="text-lg md:text-xl text-slate-700 max-w-3xl leading-relaxed font-semibold">
+            Each project draws from a set of capabilities that have been developed and proven across real client work. We don&apos;t subcontract the hard parts.
+          </p>
         </div>
 
-        <motion.div 
-          variants={containerVariants}
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true, amount: 0.3 }}
-          className="grid md:grid-cols-4 gap-12 lg:gap-8 relative"
-        >
-          {steps.map((step, idx) => {
-            const isLast = idx === steps.length - 1;
+        {/* Capabilities Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative">
+          {capabilities.map((item, idx) => (
+            <motion.div 
+              key={idx} 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.1, duration: 0.5 }}
+              className="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-sm flex flex-col h-full hover:border-orange-600/60 hover:shadow-md transition-all duration-300 group"
+            >
+              {/* Icon & Category Badge */}
+              <div className="mb-4">
+                <div className="w-12 h-12 bg-slate-50 text-orange-600 rounded-xl flex items-center justify-center group-hover:bg-orange-600 group-hover:text-white group-hover:shadow-md group-hover:shadow-orange-100 transition-colors duration-300 mb-6 shadow-sm">
+                  <item.icon size={24} />
+                </div>
+                <span className="text-xs font-bold uppercase tracking-wider text-orange-600 block mb-2">
+                  {item.category}
+                </span>
+                <h3 className="text-xl font-bold text-slate-900 leading-snug tracking-tight">
+                  {item.title}
+                </h3>
+              </div>
+              
+              {/* Description */}
+              <p className="text-slate-600 leading-relaxed font-medium text-sm mb-6">
+                {item.desc}
+              </p>
 
-            return (
-              <motion.div 
-                key={idx} 
-                variants={itemVariants}
-                className="relative flex flex-col items-center md:items-start"
-              >
-                <div className="mb-10 relative w-full flex justify-center md:justify-start items-center">
-                  {!isLast && (
-                    <div className="hidden md:block absolute top-1/2 left-20 w-full h-[3px] -translate-y-1/2 z-0">
-                      <div className="absolute inset-0 bg-slate-200 rounded-full" />
-                      <motion.div 
-                        variants={lineVariants}
-                        className="absolute inset-0 bg-orange-600 rounded-full shadow-[0_0_12px_rgba(249,115,22,0.6)]"
-                      />
-                    </div>
-                  )}
-
-                  <motion.div 
-                    variants={{
-                        initial: { borderColor: "#e2e8f0", color: "#94a3b8", backgroundColor: "#f1f5f9" },
-                        animate: { 
-                            borderColor: "#ea580c", 
-                            color: "#ea580c", 
-                            backgroundColor: "#ffffff",
-                            transition: { delay: 0.5 }
-                        }
-                    }}
-                    className="w-20 h-20 border-2 rounded-2xl flex items-center justify-center relative shadow-sm z-10"
+              {/* Tags Container */}
+              <div className="flex flex-wrap gap-1.5 mt-auto pt-4 border-t border-slate-100">
+                {item.tags.map((tag, tagIdx) => (
+                  <span
+                    key={tagIdx}
+                    className="text-[10px] font-bold uppercase tracking-wider text-slate-500 bg-slate-50 border border-slate-200/50 px-2 py-0.5 rounded-md"
                   >
-                    {isLast && (
-                      <motion.div 
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 3.5 }}
-                        className="absolute inset-0 flex items-center justify-center"
-                      >
-                        <motion.div 
-                          initial={{ scale: 0.8, opacity: 0.5 }}
-                          animate={{ scale: 1.8, opacity: 0 }}
-                          transition={{ repeat: Infinity, duration: 2, ease: "easeOut" }}
-                          className="absolute inset-0 bg-orange-400 rounded-2xl -z-10"
-                        />
-                        <motion.div 
-                          initial={{ scale: 0, y: 10 }}
-                          animate={{ scale: 1, y: 0 }}
-                          className="absolute -top-4 -right-4 bg-green-500 text-white rounded-full p-1.5 shadow-xl border-2 border-white z-50"
-                        >
-                          <CheckCircle2 size={20} strokeWidth={3} />
-                        </motion.div>
-                      </motion.div>
-                    )}
-                    <step.icon size={36} strokeWidth={1.5} />
-                  </motion.div>
-                </div>
-
-                <div className="text-center md:text-left z-10">
-                  <h3 className="text-lg font-bold mb-3 text-slate-900">
-                    {step.title}
-                  </h3>
-                  <p className="text-sm text-slate-500 leading-relaxed font-medium">
-                    {step.desc}
-                  </p>
-                </div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
