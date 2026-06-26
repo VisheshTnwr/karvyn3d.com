@@ -45,8 +45,8 @@ function InteractiveIcon({ icon: Icon, isHovered }: { icon: any, isHovered: bool
   if (Icon === Settings) {
     return (
       <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: isHovered ? 4 : 20, repeat: Infinity, ease: "linear" }}
+        animate={isHovered ? { rotate: 360 } : { rotate: 0 }}
+        transition={isHovered ? { duration: 4, repeat: Infinity, ease: "linear" } : { duration: 0 }}
       >
         <Icon size={24} />
       </motion.div>
@@ -55,8 +55,8 @@ function InteractiveIcon({ icon: Icon, isHovered }: { icon: any, isHovered: bool
   if (Icon === Target) {
     return (
       <motion.div
-        animate={{ scale: isHovered ? [1, 1.15, 1] : [1, 1.04, 1] }}
-        transition={{ duration: isHovered ? 1 : 3, repeat: Infinity, ease: "easeInOut" }}
+        animate={isHovered ? { scale: [1, 1.15, 1] } : { scale: 1 }}
+        transition={isHovered ? { duration: 1, repeat: Infinity, ease: "easeInOut" } : { duration: 0 }}
       >
         <Icon size={24} />
       </motion.div>
@@ -65,8 +65,8 @@ function InteractiveIcon({ icon: Icon, isHovered }: { icon: any, isHovered: bool
   if (Icon === Activity) {
     return (
       <motion.div
-        animate={{ scaleY: isHovered ? [1, 1.3, 0.8, 1.3, 1] : [1, 1.1, 0.95, 1.1, 1] }}
-        transition={{ duration: isHovered ? 1 : 3, repeat: Infinity, ease: "easeInOut" }}
+        animate={isHovered ? { scaleY: [1, 1.3, 0.8, 1.3, 1] } : { scaleY: 1 }}
+        transition={isHovered ? { duration: 1, repeat: Infinity, ease: "easeInOut" } : { duration: 0 }}
       >
         <Icon size={24} />
       </motion.div>
@@ -78,9 +78,9 @@ function InteractiveIcon({ icon: Icon, isHovered }: { icon: any, isHovered: bool
         animate={
           isHovered
             ? { y: [-3, 3, -3], rotate: [-6, 6, -6] }
-            : { y: [-1, 1, -1], rotate: 0 }
+            : { y: 0, rotate: 0 }
         }
-        transition={{ duration: isHovered ? 1.5 : 3, repeat: Infinity, ease: "easeInOut" }}
+        transition={isHovered ? { duration: 1.5, repeat: Infinity, ease: "easeInOut" } : { duration: 0 }}
       >
         <Icon size={24} />
       </motion.div>
@@ -89,8 +89,8 @@ function InteractiveIcon({ icon: Icon, isHovered }: { icon: any, isHovered: bool
   if (Icon === Orbit) {
     return (
       <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: isHovered ? 8 : 30, repeat: Infinity, ease: "linear" }}
+        animate={isHovered ? { rotate: 360 } : { rotate: 0 }}
+        transition={isHovered ? { duration: 8, repeat: Infinity, ease: "linear" } : { duration: 0 }}
       >
         <Icon size={24} />
       </motion.div>
@@ -121,7 +121,7 @@ function SectorCard({ sector, idx }: { sector: typeof sectorsData[0], idx: numbe
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`bg-white/70 backdrop-blur-md border border-slate-200/80 rounded-3xl p-6 md:p-8 hover:border-orange-600/50 hover:shadow-lg hover:shadow-slate-100/50 transition-all duration-300 flex flex-col h-full relative overflow-hidden group ${sector.offsetClass}`}
+      className={`bg-white md:bg-white/70 md:backdrop-blur-md border border-slate-200/80 rounded-3xl p-6 md:p-8 hover:border-orange-600/50 hover:shadow-lg hover:shadow-slate-100/50 transition-all duration-300 flex flex-col h-full relative overflow-hidden group ${sector.offsetClass}`}
     >
       {/* Dynamic Cursor Spotlight Effect */}
       {isHovered && (
@@ -181,7 +181,7 @@ export default function Sectors() {
           repeat: Infinity,
           ease: "easeInOut"
         }}
-        className="absolute -top-20 -left-20 w-96 h-96 rounded-full bg-orange-100/30 blur-3xl pointer-events-none z-0"
+        className="absolute -top-20 -left-20 w-96 h-96 rounded-full bg-orange-100/30 blur-3xl pointer-events-none z-0 hidden md:block"
       />
       <motion.div
         animate={{
@@ -193,7 +193,7 @@ export default function Sectors() {
           repeat: Infinity,
           ease: "easeInOut"
         }}
-        className="absolute -bottom-20 -right-20 w-[450px] h-[450px] rounded-full bg-orange-50/40 blur-3xl pointer-events-none z-0"
+        className="absolute -bottom-20 -right-20 w-[450px] h-[450px] rounded-full bg-orange-50/40 blur-3xl pointer-events-none z-0 hidden md:block"
       />
 
       <div className="max-w-7xl mx-auto relative z-10">

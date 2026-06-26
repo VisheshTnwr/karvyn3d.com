@@ -218,7 +218,7 @@ export default function HowWeWork() {
           repeat: Infinity,
           ease: "easeInOut"
         }}
-        className="absolute top-1/3 -right-20 w-80 h-80 rounded-full bg-orange-100/10 blur-3xl pointer-events-none z-0"
+        className="absolute top-1/3 -right-20 w-80 h-80 rounded-full bg-orange-100/10 blur-3xl pointer-events-none z-0 hidden md:block"
       />
       <motion.div
         animate={{
@@ -230,7 +230,7 @@ export default function HowWeWork() {
           repeat: Infinity,
           ease: "easeInOut"
         }}
-        className="absolute bottom-1/3 -left-20 w-96 h-96 rounded-full bg-orange-50/20 blur-3xl pointer-events-none z-0"
+        className="absolute bottom-1/3 -left-20 w-96 h-96 rounded-full bg-orange-50/20 blur-3xl pointer-events-none z-0 hidden md:block"
       />
 
       <div className="max-w-7xl mx-auto relative z-10">

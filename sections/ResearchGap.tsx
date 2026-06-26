@@ -25,15 +25,15 @@ function InteractiveIcon({ icon: Icon, isHovered }: { icon: any; isHovered: bool
   if (Icon === Ruler) {
     return (
       <motion.div
-        animate={{
-          rotate: isHovered ? [-10, 10, -10] : [-3, 3, -3],
-          y: isHovered ? [-3, 3, -3] : [-1, 1, -1]
-        }}
-        transition={{
-          duration: isHovered ? 1.5 : 4,
+        animate={isHovered ? {
+          rotate: [-10, 10, -10],
+          y: [-3, 3, -3]
+        } : { rotate: 0, y: 0 }}
+        transition={isHovered ? {
+          duration: 1.5,
           repeat: Infinity,
           ease: "easeInOut"
-        }}
+        } : { duration: 0 }}
       >
         <Icon size={24} strokeWidth={2} />
       </motion.div>
@@ -42,15 +42,15 @@ function InteractiveIcon({ icon: Icon, isHovered }: { icon: any; isHovered: bool
   if (Icon === Zap) {
     return (
       <motion.div
-        animate={{
-          scale: isHovered ? [1, 1.2, 1] : [1, 1.05, 1],
-          opacity: isHovered ? [1, 0.6, 1] : [0.9, 1, 0.9]
-        }}
-        transition={{
-          duration: isHovered ? 1 : 2.5,
+        animate={isHovered ? {
+          scale: [1, 1.2, 1],
+          opacity: [1, 0.6, 1]
+        } : { scale: 1, opacity: 1 }}
+        transition={isHovered ? {
+          duration: 1,
           repeat: Infinity,
           ease: "easeInOut"
-        }}
+        } : { duration: 0 }}
       >
         <Icon size={24} strokeWidth={2} />
       </motion.div>
@@ -59,12 +59,12 @@ function InteractiveIcon({ icon: Icon, isHovered }: { icon: any; isHovered: bool
   if (Icon === Repeat) {
     return (
       <motion.div
-        animate={{ rotate: 360 }}
-        transition={{
-          duration: isHovered ? 4 : 16,
+        animate={isHovered ? { rotate: 360 } : { rotate: 0 }}
+        transition={isHovered ? {
+          duration: 4,
           repeat: Infinity,
           ease: "linear"
-        }}
+        } : { duration: 0 }}
       >
         <Icon size={24} strokeWidth={2} />
       </motion.div>
@@ -94,7 +94,7 @@ function ProblemCard({ block, idx }: { block: typeof problemBlocks[0]; idx: numb
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-2xl border border-slate-200 shadow-sm group hover:border-orange-600/50 hover:shadow-lg hover:shadow-slate-100/50 transition-all duration-300 relative overflow-hidden"
+      className="bg-white md:bg-white/80 md:backdrop-blur-sm p-6 md:p-8 rounded-2xl border border-slate-200 shadow-sm group hover:border-orange-600/50 hover:shadow-lg hover:shadow-slate-100/50 transition-all duration-300 relative overflow-hidden"
     >
       {/* Dynamic Cursor Spotlight Effect */}
       {isHovered && (
@@ -138,7 +138,7 @@ export default function ResearchGap() {
           repeat: Infinity,
           ease: "easeInOut"
         }}
-        className="absolute top-1/4 -left-20 w-80 h-80 rounded-full bg-orange-100/20 blur-3xl pointer-events-none z-0"
+        className="absolute top-1/4 -left-20 w-80 h-80 rounded-full bg-orange-100/20 blur-3xl pointer-events-none z-0 hidden md:block"
       />
       <motion.div
         animate={{
@@ -150,11 +150,11 @@ export default function ResearchGap() {
           repeat: Infinity,
           ease: "easeInOut"
         }}
-        className="absolute bottom-1/4 -right-20 w-96 h-96 rounded-full bg-orange-50/30 blur-3xl pointer-events-none z-0"
+        className="absolute bottom-1/4 -right-20 w-96 h-96 rounded-full bg-orange-50/30 blur-3xl pointer-events-none z-0 hidden md:block"
       />
 
       {/* Blueprint drifting line pattern */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-30 z-0">
+      <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-30 z-0 hidden md:block">
         <svg className="absolute inset-0 w-full h-full text-slate-200/60" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <pattern id="research-grid" width="40" height="40" patternUnits="userSpaceOnUse">
@@ -186,7 +186,7 @@ export default function ResearchGap() {
           <div className="lg:col-span-6 lg:sticky lg:top-32 space-y-8 relative">
             
             {/* Spinning technical schematic vector background */}
-            <div className="absolute -left-10 -top-10 w-96 h-96 opacity-[0.03] text-orange-600 pointer-events-none select-none z-0">
+            <div className="absolute -left-10 -top-10 w-96 h-96 opacity-[0.03] text-orange-600 pointer-events-none select-none z-0 hidden md:block">
               <motion.svg
                 viewBox="0 0 200 200"
                 fill="none"
