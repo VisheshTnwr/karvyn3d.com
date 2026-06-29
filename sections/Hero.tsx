@@ -1,8 +1,9 @@
 "use client";
-import { motion, AnimatePresence, useSpring, useTransform } from "framer-motion";
+import { motion, useSpring, useTransform } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import MagneticButton from "@/components/MagneticButton";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 // Updated to reflect actual research instrument assets
 const carouselImages = [
@@ -83,12 +84,31 @@ export default function Hero() {
   const gridX = useTransform(springX, [-1, 1], [-60, 60]);
   const gridY = useTransform(springY, [-1, 1], [-60, 60]);
 
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const scrollToSlide = (index: number) => {
+    if (scrollContainerRef.current) {
+      const slideWidth = scrollContainerRef.current.clientWidth;
+      scrollContainerRef.current.scrollTo({
+        left: index * slideWidth,
+        behavior: "smooth",
+      });
+      setCurrentIndex(index);
+    }
+  };
+
+
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % carouselImages.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
+    if (timerRef.current) clearInterval(timerRef.current);
+    timerRef.current = setInterval(() => {
+      const nextIdx = (currentIndex + 1) % carouselImages.length;
+      scrollToSlide(nextIdx);
+    }, 6000);
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [currentIndex]);
 
   return (
     <section 
@@ -119,7 +139,7 @@ export default function Hero() {
             className="inline-flex items-center gap-2 px-3 py-1 rounded border border-slate-200 bg-slate-50 text-slate-900 tech-label mb-6 shadow-sm"
           >
             <span className="w-2 h-2 rounded-full bg-orange-600 animate-pulse"/>
-            Product Design & Development · Gurugram, India
+            Product Design & Development
           </motion.span>
 
           <motion.h1
@@ -202,29 +222,57 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.4 }}
-          className="relative hidden lg:block h-[600px] w-full bg-slate-100 rounded-[2rem] border border-slate-200 shadow-2xl overflow-hidden"
+          className="relative block h-[350px] sm:h-[480px] lg:h-[600px] w-full bg-slate-100 rounded-[2rem] border border-slate-200 shadow-2xl overflow-hidden group/carousel"
         >
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentIndex}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="absolute inset-0"
-            >
-              <Image
-                src={carouselImages[currentIndex].src}
-                alt="Karvyn 3D Instruments"
-                fill
-                className={carouselImages[currentIndex].src.includes('beam-walk') ? "object-contain p-1" : "object-cover"}
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-            </motion.div>
-          </AnimatePresence>
+          {/* Programmatic Scroll Container (hidden overflow prevents manual scrolling) */}
+          <div
+            ref={scrollContainerRef}
+            className="w-full h-full flex overflow-x-hidden scroll-smooth"
+          >
+            {carouselImages.map((image, idx) => (
+              <div
+                key={idx}
+                className="w-full h-full min-w-full relative snap-start snap-always"
+              >
+                <Image
+                  src={image.src}
+                  alt={image.label}
+                  fill
+                  className={image.src.includes('beam-walk') ? "object-contain p-8" : "object-cover"}
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  priority={idx <= 1}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent pointer-events-none" />
+              </div>
+            ))}
+          </div>
+
+          {/* Left Arrow Button */}
+          <button
+            onClick={() => {
+              const prevIdx = (currentIndex - 1 + carouselImages.length) % carouselImages.length;
+              scrollToSlide(prevIdx);
+            }}
+            className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-white/90 backdrop-blur-sm rounded-full shadow-lg opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300 hover:bg-orange-600 hover:text-white z-20 text-slate-800 cursor-pointer hidden sm:flex items-center justify-center"
+            aria-label="Previous slide"
+          >
+            <ChevronLeft size={24} />
+          </button>
+
+          {/* Right Arrow Button */}
+          <button
+            onClick={() => {
+              const nextIdx = (currentIndex + 1) % carouselImages.length;
+              scrollToSlide(nextIdx);
+            }}
+            className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-white/90 backdrop-blur-sm rounded-full shadow-lg opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300 hover:bg-orange-600 hover:text-white z-20 text-slate-800 cursor-pointer hidden sm:flex items-center justify-center"
+            aria-label="Next slide"
+          >
+            <ChevronRight size={24} />
+          </button>
            
-          <div className="absolute bottom-6 left-8 z-20">
+          {/* Active slide label */}
+          <div className="absolute bottom-6 left-6 sm:left-8 z-20 pointer-events-none">
              <div className="flex items-center gap-2 bg-white/90 backdrop-blur-sm py-2 px-4 rounded-full border border-slate-200 shadow-sm">
                <div className="w-1.5 h-1.5 bg-orange-600 rounded-full animate-pulse"></div>
                <span className="text-[10px] font-bold tracking-widest uppercase text-slate-600">
@@ -233,11 +281,14 @@ export default function Hero() {
              </div>
           </div>
 
-          <div className="absolute bottom-8 right-8 flex gap-2 z-20">
+          {/* Indicators */}
+          <div className="absolute bottom-8 right-6 sm:right-8 flex gap-2 z-20">
             {carouselImages.map((_, i) => (
-              <div 
+              <button 
                 key={i}
-                className={`h-1 rounded-full transition-all duration-300 ${i === currentIndex ? 'w-8 bg-orange-600' : 'w-2 bg-white/50'}`}
+                onClick={() => scrollToSlide(i)}
+                className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${i === currentIndex ? 'w-8 bg-orange-600' : 'w-2.5 bg-white/60 hover:bg-white/90'}`}
+                aria-label={`Go to slide ${i + 1}`}
               />
             ))}
           </div>

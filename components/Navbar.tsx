@@ -15,7 +15,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Prevent background scrolling when mobile menu is open
+  
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -45,7 +45,7 @@ export default function Navbar() {
             ? "bg-transparent py-4 border-transparent"
             : isScrolled
             ? "bg-white/90 backdrop-blur-md py-4 border-slate-200 shadow-sm"
-            : "bg-transparent py-6 border-transparent"
+            : "bg-transparent py-4 md:py-6 border-transparent"
         }`}
       >
         <nav className="container mx-auto max-w-7xl px-6 flex justify-between items-center">
@@ -108,10 +108,10 @@ export default function Navbar() {
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, x: "100%" }}
+            initial={{ opacity: 0, x: "100vw" }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: "100%" }}
-            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            exit={{ opacity: 0, x: "100vw" }}
+            transition={{ type: "tween", ease: "easeInOut", duration: 0.25 }}
             className="fixed inset-0 z-40 flex flex-col p-8 pt-32 shadow-2xl"
             style={{ backgroundColor: "#ffffff" }}
           >

@@ -19,10 +19,14 @@ export default function ServiceContent() {
   >(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+  const selectService = (service: (typeof SERVICES)[0] | null) => {
+    setSelectedService(service);
+    setCurrentImageIndex(0);
+  };
+
   useEffect(() => {
     if (selectedService) {
       document.body.style.overflow = "hidden";
-      setCurrentImageIndex(0); // Reset index when opening new popup
     } else {
       document.body.style.overflow = "unset";
     }
@@ -136,7 +140,7 @@ export default function ServiceContent() {
                       : service.description}
                     {service.description.length > 200 && (
                       <button
-                        onClick={() => setSelectedService(service)}
+                        onClick={() => selectService(service)}
                         className="text-orange-600 font-bold ml-2 hover:underline cursor-pointer inline-flex items-center"
                       >
                         Read More
@@ -160,7 +164,7 @@ export default function ServiceContent() {
 
                 <div className="relative z-10 pt-6 border-t border-slate-200/50">
                   <button
-                    onClick={() => setSelectedService(service)}
+                    onClick={() => selectService(service)}
                     className="group/btn relative inline-flex items-center gap-4 px-8 py-4 bg-slate-900 rounded-xl text-white font-bold uppercase tracking-widest text-[10px] transition-all duration-300 hover:bg-orange-600 shadow-lg active:scale-95"
                   >
                     View Specifications
@@ -174,15 +178,17 @@ export default function ServiceContent() {
 
               <div className="flex-1 relative min-h-[400px] overflow-hidden bg-slate-100/50">
                 <Image
-                  onClick={() => setSelectedService(service)}
+                  onClick={() => selectService(service)}
                   src={service.imageUrl}
                   alt={service.title}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   className={`${
                     service.imageFit === "contain"
                       ? "object-contain p-8 md:p-12"
                       : "object-cover"
                   } transition-transform duration-700 group-hover:scale-105 cursor-pointer`}
+                  loading="lazy"
                 />
                 {/* <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-lg border border-slate-200 shadow-sm text-[10px] font-black uppercase text-slate-900">
                   K3D Reference: {index + 101}
@@ -201,7 +207,7 @@ export default function ServiceContent() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.15 }}
-              onClick={() => setSelectedService(null)}
+              onClick={() => selectService(null)}
               className="absolute inset-0 bg-slate-900/80 backdrop-blur-sm"
             />
 
@@ -213,7 +219,7 @@ export default function ServiceContent() {
               className="relative w-full max-w-7xl max-h-[95vh] overflow-y-auto bg-white rounded-3xl shadow-2xl border border-slate-200"
             >
               <button
-                onClick={() => setSelectedService(null)}
+                onClick={() => selectService(null)}
                 className="absolute top-4 right-4 md:top-6 md:right-6 z-[110] p-2 bg-slate-100 rounded-full hover:bg-orange-100 hover:text-orange-600 transition-colors shadow-sm"
               >
                 <X size={20} />
@@ -231,7 +237,9 @@ export default function ServiceContent() {
                         }
                         alt={`${selectedService.title} view ${currentImageIndex + 1}`}
                         fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 50vw"
                         className="object-contain transition-opacity duration-300"
+                        priority
                       />
 
                       {selectedService.gallery &&
@@ -266,6 +274,7 @@ export default function ServiceContent() {
                               src={img}
                               alt="thumbnail"
                               fill
+                              sizes="128px"
                               className="object-contain p-1"
                             />
                           </button>
@@ -360,7 +369,7 @@ export default function ServiceContent() {
 
                     <a
                       href="#contact"
-                      onClick={() => setSelectedService(null)}
+                      onClick={() => selectService(null)}
                       className="block w-full text-center bg-slate-900 text-white py-5 rounded-xl font-bold text-sm hover:bg-orange-600 transition-colors shadow-lg"
                     >
                       Inquire About This Instrument

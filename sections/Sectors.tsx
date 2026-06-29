@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Settings, Target, Activity, Bot, Orbit } from "lucide-react";
+import { Settings, Target, Activity, Bot, Orbit, LucideIcon } from "lucide-react";
 
 const sectorsData = [
   {
@@ -41,7 +41,7 @@ const sectorsData = [
   }
 ];
 
-function InteractiveIcon({ icon: Icon, isHovered }: { icon: any, isHovered: boolean }) {
+function InteractiveIcon({ icon: Icon, isHovered }: { icon: LucideIcon, isHovered: boolean }) {
   if (Icon === Settings) {
     return (
       <motion.div

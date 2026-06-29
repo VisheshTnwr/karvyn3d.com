@@ -1,6 +1,6 @@
 "use client";
 import { motion, useSpring } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 export default function MagneticButton({ children }: { children: React.ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -12,12 +12,12 @@ export default function MagneticButton({ children }: { children: React.ReactNode
     const { left, top, width, height } = ref.current.getBoundingClientRect();
     
     // Distance from center
-    const x = clientX - (left + width / 2);
-    const y = clientY - (top + height / 2);
+    const xDist = clientX - (left + width / 2);
+    const yDist = clientY - (top + height / 2);
     
     // Multiplier is much lower (0.1) and we cap the movement at 12px to prevent overlap
-    const moveX = Math.max(-12, Math.min(12, x * 0.1));
-    const moveY = Math.max(-12, Math.min(12, y * 0.1));
+    const moveX = Math.max(-12, Math.min(12, xDist * 0.1));
+    const moveY = Math.max(-12, Math.min(12, yDist * 0.1));
     
     setPosition({ x: moveX, y: moveY });
   };
@@ -27,8 +27,13 @@ export default function MagneticButton({ children }: { children: React.ReactNode
   };
 
   const springConfig = { damping: 15, stiffness: 150 };
-  const x = useSpring(position.x, springConfig);
-  const y = useSpring(position.y, springConfig);
+  const x = useSpring(0, springConfig);
+  const y = useSpring(0, springConfig);
+
+  useEffect(() => {
+    x.set(position.x);
+    y.set(position.y);
+  }, [position, x, y]);
 
   return (
     <div 

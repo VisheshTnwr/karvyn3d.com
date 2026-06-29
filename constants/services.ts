@@ -8,6 +8,23 @@ import {
 
 export const SERVICES = [
   {
+    title: "Crow Behavioural Test Gate",
+    subtitle: "Mechatronics · Embedded Systems · Custom Enclosure",
+    problem: "Behavioural research needed an automated gate mechanism with precise event-triggered actuation, data logging, and a compact physical form",
+    description: "An automated gate system for avian behavioural research trials. ESP32-based control logic handles servo actuation triggered by force-sensitive resistors, with serial data output for experimental logging. The enclosure was designed and manufactured as an integrated system — electronics, mechanics, and mounting all resolved in a single package. Delivered with Karvyn 3D branding and clean cable management.",
+    icon: Microscope,
+    imageUrl: "/images/BAS/bas4.jpg",
+    gallery: [
+      "/images/BAS/bas.jpg",
+      "/images/BAS/bas1.jpg",
+      "/images/BAS/bas2.jpg",
+      "/images/BAS/bas3.jpg",
+      "/images/BAS/bas4.jpg",
+      "/images/BAS/bas5.jpg",
+    ],
+    tags: ["ESP32 Firmware", "Servo Control", "FSR Sensing", "Data Logging", "Custom Enclosure Design", "FDM Manufacturing"]
+  },
+  {
     title: "Custom Rat Restrainers",
     subtitle: "Precision Fit · Material Engineering · MRI-Compatible",
     problem: "Unsedated animal imaging demanded restraint hardware sized to developmental stage and verified safe for high-field scanner environments",
@@ -72,22 +89,5 @@ export const SERVICES = [
       "/images/joystick/joystick9.jpg",
     ],
     tags: ["Ergonomic Engineering", "Material Compatibility", "Stability Design"]
-  },
-  {
-    title: "Crow Behavioural Test Gate",
-    subtitle: "Mechatronics · Embedded Systems · Custom Enclosure",
-    problem: "Behavioural research needed an automated gate mechanism with precise event-triggered actuation, data logging, and a compact physical form",
-    description: "An automated gate system for avian behavioural research trials. ESP32-based control logic handles servo actuation triggered by force-sensitive resistors, with serial data output for experimental logging. The enclosure was designed and manufactured as an integrated system — electronics, mechanics, and mounting all resolved in a single package. Delivered with Karvyn 3D branding and clean cable management.",
-    icon: Microscope,
-    imageUrl: "/images/BAS/bas4.jpg",
-    gallery: [
-      "/images/BAS/bas.jpg",
-      "/images/BAS/bas1.jpg",
-      "/images/BAS/bas2.jpg",
-      "/images/BAS/bas3.jpg",
-      "/images/BAS/bas4.jpg",
-      "/images/BAS/bas5.jpg",
-    ],
-    tags: ["ESP32 Firmware", "Servo Control", "FSR Sensing", "Data Logging", "Custom Enclosure Design", "FDM Manufacturing"]
   },
 ];

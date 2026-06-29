@@ -7,6 +7,11 @@ import Contact from "@/sections/Contact";
 import ResearchGap from "@/sections/ResearchGap"; // Imported the new section
 import HowWeWork from "@/sections/WhoWeServe";
 import Sectors from "@/sections/Sectors";
+import dynamic from "next/dynamic";
+
+const Logo3D = dynamic(() => import("@/components/Logo3D"), {
+  ssr: false,
+});
 
 export default function Home() {
   return (
@@ -43,9 +48,17 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 text-sm text-slate-500">
 
             {/* Column 1: Brand Info */}
-            <div className="space-y-4">
-              <h4 className="text-slate-900 font-bold uppercase tracking-widest">Karvyn 3D</h4>
-              <p className="leading-relaxed">
+            <div className="space-y-4 md:pl-10">
+              <div className="w-40 h-40 -mt-10 -ml-2">
+                <Logo3D />
+              </div>
+              
+              <div className="w-40 -ml-2 text-center relative z-10 -mt-8">
+                <h4 className="inline-block bg-white px-2 py-1 text-base font-bold text-slate-900 uppercase tracking-[0.2em] select-none">
+                  Karvyn 3D
+                </h4>
+              </div>
+              <p className="leading-relaxed pt-2">
                 Proprietary Lab Instruments & <br/>
                 Research Tools.
               </p>
@@ -58,9 +71,21 @@ export default function Home() {
             <div className="space-y-4">
               <h4 className="text-slate-900 font-bold uppercase tracking-widest">Instruments</h4>
               <ul className="space-y-3">
-                <li className="hover:text-orange-600 transition-colors cursor-pointer">MRI Restraints</li>
-                <li className="hover:text-orange-600 transition-colors cursor-pointer">Behavioral Rigs</li>
-                <li className="hover:text-orange-600 transition-colors cursor-pointer">Avian Cradles</li>
+                <li>
+                  <a href="#instruments" className="hover:text-orange-600 transition-colors">
+                    MRI Restraints
+                  </a>
+                </li>
+                <li>
+                  <a href="#instruments" className="hover:text-orange-600 transition-colors">
+                    Behavioral Rigs
+                  </a>
+                </li>
+                <li>
+                  <a href="#instruments" className="hover:text-orange-600 transition-colors">
+                    Avian Cradles
+                  </a>
+                </li>
               </ul>
             </div>
 

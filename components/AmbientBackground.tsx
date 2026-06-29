@@ -44,32 +44,6 @@ export default function AmbientBackground() {
         }}
         className="absolute bottom-[5%] right-[5%] w-[60%] h-[60%] bg-orange-100/10 blur-[120px] rounded-full"
       />
-
-      {/* Subtle Floating Particles */}
-      <svg className="absolute inset-0 w-full h-full">
-        {[...Array(20)].map((_, i) => (
-          <motion.circle
-            key={i}
-            r={Math.random() * 2 + 0.5}
-            fill="#ea580c"
-            className="opacity-10"
-            initial={{
-              x: Math.random() * 100 + "%",
-              y: Math.random() * 110 + "%",
-            }}
-            animate={{
-              y: "-10%",
-              opacity: [0, 0.15, 0],
-            }}
-            transition={{
-              duration: Math.random() * 20 + 20,
-              repeat: Infinity,
-              ease: "linear",
-              delay: Math.random() * 20,
-            }}
-          />
-        ))}
-      </svg>
     </div>
   );
 }

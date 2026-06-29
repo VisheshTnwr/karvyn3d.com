@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Ruler, Zap, Repeat } from "lucide-react";
+import { Ruler, Zap, Repeat, LucideIcon } from "lucide-react";
 
 const problemBlocks = [
   {
@@ -21,7 +21,7 @@ const problemBlocks = [
   }
 ];
 
-function InteractiveIcon({ icon: Icon, isHovered }: { icon: any; isHovered: boolean }) {
+function InteractiveIcon({ icon: Icon, isHovered }: { icon: LucideIcon; isHovered: boolean }) {
   if (Icon === Ruler) {
     return (
       <motion.div
