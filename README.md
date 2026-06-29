@@ -1,11 +1,4 @@
-# 🧊 Karvyn3D (Developer Cheatsheet)
 
-> **Private Documentation**
-> *Built with Next.js 16 (Canary) + React 19 + Tailwind v4*
-
-This README is designed to be a map of the codebase. Use it to quickly locate where to change text, images, or logic without hunting through folders.
-
----
 
 ## ⚡ Quick Commands
 
